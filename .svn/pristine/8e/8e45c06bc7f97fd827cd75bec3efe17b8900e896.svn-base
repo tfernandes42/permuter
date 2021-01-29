@@ -1,0 +1,96 @@
+/*
+ * Created on May 2, 2007
+ * 
+ * Copyright 2007 (c) NewsBank, Inc.
+ * All Rights Reserved
+ */
+package com.newsbank.permuter.net;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.ContentType;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.Charset;
+
+
+
+public class HttpRequest
+	{
+	private static final Log kLogger = LogFactory.getLog(HttpRequest.class);
+
+    public static final String doGetRequest(String inRequest)
+    	throws Throwable
+    	{
+    	return doGetRequest(inRequest, new StringBuilder());
+    	}
+	
+    public static final String doGetRequest(String inRequest, StringBuilder inBuilder)
+    	throws Throwable
+    	{
+    	String result=null;
+    	
+    	CloseableHttpClient theClient = HttpClients.createDefault();
+    	HttpGet theGetRequest = new HttpGet(inRequest);
+    	
+    	CloseableHttpResponse theHttpResponse = null;
+    	try
+    		{
+    		theHttpResponse =  theClient.execute(theGetRequest);
+            StatusLine theStatusLine = theHttpResponse.getStatusLine();
+            if (theStatusLine.getStatusCode() < 300)
+            	{
+                HttpEntity theEntity = theHttpResponse.getEntity();
+                if (theEntity != null)
+                	{
+                    ContentType theContentType = ContentType.getOrDefault(theEntity);
+                    theContentType.withCharset(Charset.forName("UTF-8"));
+                    Charset theCharSet = theContentType.getCharset();
+                    
+                    Reader theReader = new InputStreamReader(theEntity.getContent(), theCharSet);
+                    result = readFully(theReader, inBuilder).toString();
+                	}
+            	}
+    		}
+    	
+    	catch(Throwable theErr)
+    		{
+    		kLogger.fatal(inRequest, theErr);
+    		}
+    	
+    	finally 
+    		{
+    		theHttpResponse.close();
+    		}
+    
+    	return result;
+    	}
+
+    
+    private static StringBuilder readFully( Reader input, StringBuilder inBuilder) 
+    	throws IOException
+    	{
+    	BufferedReader bufferedReader = input instanceof BufferedReader ? (BufferedReader)input : new BufferedReader( input);
+    	StringBuilder result = inBuilder;
+    	if (result == null)
+    		result = new StringBuilder();
+    	
+    	char[] buffer = new char[4 * 1024];
+    	int charsRead;
+    	while( (charsRead = bufferedReader.read( buffer)) != -1)
+    		{
+    		result.append( buffer, 0, charsRead);
+    		}
+    	return result;
+    	}
+    
+	}

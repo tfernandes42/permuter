@@ -1,0 +1,212 @@
+<document id="11F5A20FAB44EF50" process="unq">
+<HTML>
+<meta>
+<lang-enc score="11.07" encoding="utf-8" xmlns="xdmp:encoding-language-detect">en</lang-enc>
+<lang-enc score="8.911" encoding="utf-8" xmlns="xdmp:encoding-language-detect">de</lang-enc>
+<lang-enc score="8.668" encoding="utf-8" xmlns="xdmp:encoding-language-detect">fr</lang-enc>
+<datetime-created>2013-09-29T18:51:41.843971-04:00</datetime-created>
+<datetime-updated>2018-03-07T03:48:11.033816-05:00</datetime-updated></meta>
+<PDI>R</PDI>
+<DAT>March 10, 2008</DAT>
+<PAP>Denver Post, The (CO)</PAP>
+<UNQ>11F5A20FAB44EF50</UNQ>
+<ROY>THE DENVER POST</ROY>
+<DSI>0F28992A20E97DAA</DSI>
+<IBD>2454536</IBD>
+<PUNQ>11F5A20FA8FBDA10</PUNQ>
+<DTI>2008-03-11T15:57:37-05:00</DTI>
+<PBI>0C9C3248A1B06480</PBI>
+<YMD>2008-03-10</YMD>
+<EPP>5</EPP>
+<COP>Copyright (c) 2008 The Denver Post Corp.</COP>
+<WCT>1642</WCT>
+<SQN>1399901</SQN>
+<EID>11F56E565FACCB90</EID>
+<PARNT>TRUE</PARNT>
+<CTID>0F422B80DA360EE9</CTID>
+<CTID>0F7B824C6F10EDFB</CTID>
+<HED>OBITUARIES &amp; MEMORIALS</HED>
+<TYP>OBITS</TYP>
+<SEC>BUSINESS</SEC>
+<PAG>A-23</PAG>
+<SIZE>956</SIZE>
+<SART>
+
+<br/>
+
+<SUNQ>11F5A20FAB44EF50</SUNQ>
+
+<p/>
+
+<DECE>MEYER, WILLIAM, JR.</DECE>
+
+<p/>
+
+<SBODY>"BILL" Bill passed away on March 7, 2008. He is survived by his sons Jeffrey (Pamela) and Craig (Jenny); sister Gene Shiplet; numerous other relatives. For service information and to share condolences please see HoranCares.com.</SBODY>
+
+<p/>
+
+<SWCT>40</SWCT>
+
+<p/>
+</SART>
+<SIZE_enhancements>8359</SIZE_enhancements>
+<nbx:enhancements xmlns:nbx="http://www.newsbank.com/xml/nbx/1.0">
+<nbx:enhancement form="transformed" supplier="FamilySearch" type="OBITUARY">
+<FamilySearch xmlns="http://www.newsbank.com/xml/FamilySearch/1.0">
+<record>
+<form>transformed</form>
+<supplier>FamilySearch</supplier>
+<type>OBITUARY</type>
+<record_id>r_102687815318</record_id>
+<metadata>
+<record_identifier>https://familysearch.org/ark:/61903/1:2:Q2RR-SDJH</record_identifier>
+<record_title>Entry for William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</record_title>
+<created>2016-10-04T20:17:47.968Z</created>
+<modified>2016-10-26T00:05:45.732Z</modified></metadata>
+<EVENT_TYPE>OBITUARY</EVENT_TYPE>
+<person_count>7</person_count>
+<field_FS_RECORD_GROUP>OutputDeliveryAllRobo</field_FS_RECORD_GROUP>
+<field_EXT_IMAGE_ID>11F5A20FAB44EF50</field_EXT_IMAGE_ID>
+<person principal="true">
+<person_REL_TYPE>Deceased</person_REL_TYPE>
+<person_id>p_101938217543</person_id>
+<principal_id>p_101938217543</principal_id>
+<person_title>William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:QK51-KNQP</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>William</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Meyer</person_PR_NAME_SURN>
+<person_PR_NAME_SUF>Jr</person_PR_NAME_SUF>
+<person_PR_NAME>William Meyer Jr</person_PR_NAME>
+<field_EXT_IMAGE_ID>11F5A20FAB44EF50</field_EXT_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3Q9M-CSZZ-Y9SH-5</field_IMAGE_ARK>
+<event_EVENT_DATE>10 Mar 2008</event_EVENT_DATE>
+<event_EVENT_YMD>2008-03-10</event_EVENT_YMD>
+<event_EVENT_IBD>2454536</event_EVENT_IBD>
+<event_EVENT_MONTH>Mar</event_EVENT_MONTH>
+<event_EVENT_DAY>10</event_EVENT_DAY>
+<event_EVENT_YEAR>2008</event_EVENT_YEAR>
+<event_EVENT_PLACE>Colorado, United States</event_EVENT_PLACE>
+<event_EVENT_STATE>Colorado</event_EVENT_STATE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_INSTITUTION>Denver Post, The</event_EVENT_INSTITUTION>
+<event_EVENT_STATE_COUNTRY>Colorado</event_EVENT_STATE_COUNTRY>
+<person_PR_DEATH_DATE>07 Mar 2008</person_PR_DEATH_DATE>
+<person_PR_DEATH_YMD>2008-03-07</person_PR_DEATH_YMD>
+<person_PR_DEATH_IBD>2454533</person_PR_DEATH_IBD>
+<person_PR_DEATH_MONTH>Mar</person_PR_DEATH_MONTH>
+<person_PR_DEATH_DAY>7</person_PR_DEATH_DAY>
+<person_PR_DEATH_YEAR>2008</person_PR_DEATH_YEAR></person>
+<person principal="false">
+<person_id>p_101938217544</person_id>
+<principal_id>p_101938217543</principal_id>
+<person_title>Bill in entry for William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:QK51-KNQ5</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Bill</person_PR_NAME_GN>
+<person_PR_NAME>Bill</person_PR_NAME>
+<person_REL_TYPE>Father-In-Law</person_REL_TYPE></person>
+<person principal="false">
+<person_id>p_101938217546</person_id>
+<principal_id>p_101938217543</principal_id>
+<person_title>Pamela in entry for William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:QK51-KNQT</person_identifier>
+<person_PR_SEX_CODE>Female</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Pamela</person_PR_NAME_GN>
+<person_PR_NAME>Pamela</person_PR_NAME>
+<person_REL_TYPE>Daughter-In-Law</person_REL_TYPE></person>
+<person principal="false">
+<person_id>p_101938217547</person_id>
+<principal_id>p_101938217543</principal_id>
+<person_title>Craig in entry for William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:QK51-KNQY</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Craig</person_PR_NAME_GN>
+<person_PR_NAME>Craig</person_PR_NAME>
+<person_REL_TYPE>Son</person_REL_TYPE></person>
+<person principal="false">
+<person_id>p_101938217548</person_id>
+<principal_id>p_101938217543</principal_id>
+<person_title>Jenny in entry for William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:QK51-KNQB</person_identifier>
+<person_PR_SEX_CODE>Female</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Jenny</person_PR_NAME_GN>
+<person_PR_NAME>Jenny</person_PR_NAME>
+<person_REL_TYPE>Daughter-In-Law</person_REL_TYPE></person>
+<person principal="false">
+<person_id>p_101938217545</person_id>
+<principal_id>p_101938217543</principal_id>
+<person_title>Jeffrey in entry for William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:QK51-KNQR</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Jeffrey</person_PR_NAME_GN>
+<person_PR_NAME>Jeffrey</person_PR_NAME>
+<person_REL_TYPE>Son</person_REL_TYPE></person>
+<person principal="false">
+<person_id>p_101938217549</person_id>
+<principal_id>p_101938217543</principal_id>
+<person_title>Gene Shiplet in entry for William Meyer Jr, "United States, GenealogyBank Obituaries, 1980-2014"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:QK51-KNQ1</person_identifier>
+<person_PR_SEX_CODE>Female</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Gene</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Shiplet</person_PR_NAME_SURN>
+<person_PR_NAME>Gene Shiplet</person_PR_NAME>
+<person_REL_TYPE>Sister</person_REL_TYPE></person>
+<relationship>
+<relationship_type>ParentChildInLaw</relationship_type>
+<relationship_person1>p_101938217544</relationship_person1>
+<relationship_person2>p_101938217543</relationship_person2>
+<relationship_REL_TYPE_INV>Son-In-Law</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Father-In-Law</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship>
+<relationship>
+<relationship_type>ParentChild</relationship_type>
+<relationship_person1>p_101938217543</relationship_person1>
+<relationship_person2>p_101938217545</relationship_person2>
+<relationship_REL_TYPE_INV>Son</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Father</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship>
+<relationship>
+<relationship_type>ParentChildInLaw</relationship_type>
+<relationship_person1>p_101938217543</relationship_person1>
+<relationship_person2>p_101938217546</relationship_person2>
+<relationship_REL_TYPE_INV>Daughter-In-Law</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Father-In-Law</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship>
+<relationship>
+<relationship_type>ParentChild</relationship_type>
+<relationship_person1>p_101938217543</relationship_person1>
+<relationship_person2>p_101938217547</relationship_person2>
+<relationship_REL_TYPE_INV>Son</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Father</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship>
+<relationship>
+<relationship_type>ParentChildInLaw</relationship_type>
+<relationship_person1>p_101938217543</relationship_person1>
+<relationship_person2>p_101938217548</relationship_person2>
+<relationship_REL_TYPE_INV>Daughter-In-Law</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Father-In-Law</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship>
+<relationship>
+<relationship_type>Sibling</relationship_type>
+<relationship_person1>p_101938217549</relationship_person1>
+<relationship_person2>p_101938217543</relationship_person2>
+<relationship_REL_TYPE_INV>Brother</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Sister</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship>
+<relationship>
+<relationship_type>Couple</relationship_type>
+<relationship_person1>p_101938217545</relationship_person1>
+<relationship_person2>p_101938217546</relationship_person2>
+<relationship_REL_TYPE_INV>Wife</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Husband</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship>
+<relationship>
+<relationship_type>Couple</relationship_type>
+<relationship_person1>p_101938217547</relationship_person1>
+<relationship_person2>p_101938217548</relationship_person2>
+<relationship_REL_TYPE_INV>Wife</relationship_REL_TYPE_INV>
+<relationship_REL_TYPE>Husband</relationship_REL_TYPE>
+<principal_id>p_101938217543</principal_id></relationship></record></FamilySearch></nbx:enhancement></nbx:enhancements>
+<COLLECTION>obit</COLLECTION></HTML></document>

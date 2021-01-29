@@ -1,0 +1,8 @@
+# See https://tedone.typepad.com/blog/2010/03/setting-svnignore-from-the-command-line.html
+#USAGE from project root, run: svn propset svn:ignore -RF .svnignore .
+.settings
+bin
+distributions
+*.bak
+*.tmp
+log4j2.xml

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<personSearch>
+  <primary>
+    <nameFirst><![CDATA[Jack]]></nameFirst>
+    <nameLast><![CDATA[Byrne]]></nameLast>
+  </primary>
+  <option>evidscore-cutoff</option>
+  <gateway><![CDATA[type=triplet&returnNavigators=0&navigators=v4&recommenders=0&xslt=philanthropy/fedsearch&product=PHILAN&api_key=phil&auth=Brn7umh5k-hkrREjT1T1DuIXaFQ&hide_search_params=true&p_field_base-0=dti&p_params_base-0=date%3AB%2CE&p_text_base-0=after%202019-09-28T15%3A02%3A55-04%3A00&p_bool_base-1=and&p_field_base-1=ymd_date&p_params_base-1=date%3AB%2CE&p_text_base-1=after%202019-09-22]]></gateway>
+</personSearch>

@@ -1,0 +1,30 @@
+<personSearch>
+	<primary>
+		<nameFirst>Jack</nameFirst>
+		<nameMid>P</nameMid>
+		<nameLast>Randall</nameLast>
+	</primary>
+	<second>
+		<nameFirst>Beverly</nameFirst>
+		<nameMid>R</nameMid>
+		<nameLast>Randall</nameLast>
+		<relationship>spouse</relationship>
+	</second>
+	<terms>
+		<term>University of Texas</term>
+		<term>UT Austin</term>
+		<term>Jefferies Randall</term>
+		<term>Randall &amp; Dewey</term>
+		<term>XTO Energy</term>
+		<term>Caymus Energy</term>
+		<term>Standard Oil of Indiana</term>
+		<term>Amoco</term>
+		<term>M.D. Anderson Cancer</term>
+		<term>Sam Houston Council</term>
+		<term>Morning Star Partners</term>
+		<term>Esenjay</term>
+		<term>Foundation for the Arts and Community Enrichment</term>
+	</terms>
+	<!--<gateway>product%3DPHILAN%26api_key%3Dphil%26cust_auth%3Dncdeditphil%7Cncdeditphil%26cust_auth_type%3Duserpw%26type%3Dtriplet</gateway>
+	<option>norank</option>-->
+</personSearch>

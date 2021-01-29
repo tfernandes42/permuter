@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<personSearch>
+  <primary>
+    <nameFirst><![CDATA[Dionne]]></nameFirst>
+    <nameLast><![CDATA[Davenport]]></nameLast>
+  </primary>
+  <second>
+    <nameFirst><![CDATA[Herman ]]></nameFirst>
+    <nameLast><![CDATA[Davenport]]></nameLast>
+    <relationship>Spouse</relationship>
+  </second>
+  <terms>
+    <term><![CDATA[Council Bluffs]]></term>
+  </terms>
+  <gateway><![CDATA[type=triplet&returnNavigators=0&recommenders=0&xslt=philanthropy/fedsearch&product=PHILAN&api_key=phil&cust_auth_type=userpw&cust_auth=ncdeditphil%7Cncdeditphil&hide_search_params=true&p_field_base-0=dti&p_params_base-0=date%3AB%2CE&p_text_base-0=after%202019-06-22T20%3A24%3A55%2B00%3A00&p_bool_base-1=and&p_field_base-1=ymd_date&p_params_base-1=date%3AB%2CE&p_text_base-1=after%202019-06-14T20%3A24%3A55%2B00%3A00]]></gateway>
+</personSearch>

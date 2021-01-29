@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     August 8, 2018                                                     
+
+     Permuter
+                   
+     maxsom@newsbank.com, tfernandes@newsbank.com                                                                
+     ====================================================================== -->
+<project name="Permuter" default="compile" basedir=".">
+	<description>
+    	Build file for Permuter system
+	</description>
+
+	<property name="root.bundle" value="permuter"/>
+	<property name="root.src" value="src"/>
+	<property name="root.libs" value="libs"/>
+	<property name="root.classes" value="compiled-classes"/>
+	<property name="root.jar" value="jar"/>
+	<property name="root.distro" value="distro"/>
+	<property name="root.resources" value="resources"/>
+	
+	<property name="root.ftp.servername" value="stage-jvm009.newsbank.com"/>
+	<property name="root.ftp.username" value="prog"/>
+	<property name="root.ftp.password" value="retrev4u"/>
+	<property name="root.ftp.remotedir" value="distro"/>
+
+	<path id="root.classpath">
+		<!-- our libs -->
+		<fileset dir="${root.libs}">
+			<include name="**/*.jar"/>
+		</fileset>
+		
+		<!-- our classes -->
+		<pathelement path="${root.classes}"/>
+	</path>
+
+	<target name="clean">
+		<!-- start w/clean directory -->
+		<delete dir="${root.bundle}"/>
+	</target>
+
+	<target name="compile" depends="clean">		
+		<mkdir dir="${root.bundle}/${root.classes}"/>
+		
+		<!-- compile the source excluding test tree -->
+	    <javac srcdir="${root.src}"
+ 		        excludes="test/**"            
+	    		destdir="${root.bundle}/${root.classes}"
+	           	debug="on"
+	           	deprecation="no"
+	           	optimize="off"
+				source="1.6"
+           		compiler="javac1.6"
+	    		includeantruntime="false">
+	        <classpath refid="root.classpath"/>
+	    </javac>
+	</target>
+	<!--add jarfile here?-->
+	<target name="jar" depends="compile">		
+			<jar destfile="${root.bundle}/${root.jar}/${root.bundle}.jar" basedir="${root.bundle}/${root.classes}"/>
+		</target>
+	
+	<target name="onejar" depends="compile">		
+	    <jar jarfile="${root.bundle}/${root.jar}/${root.bundle}.1.jar"
+	         basedir="${root.bundle}/${root.classes}">
+	       <restrict>
+	              <not><name name="META-INF/*.SF" /></not>
+	              <not><name name="META-INF/*.RSA" /></not>
+	             
+	              <archives>
+	                     <zips>
+	                           <fileset dir="${root.libs}">
+	                                  <include name="**/*.jar"/>
+	                           </fileset>
+	                     </zips>
+	              </archives>
+	       </restrict>
+	        <manifest> 
+	          <attribute name="Built-By" value="tfernandes@newsbank.com" /> 
+	          <attribute name="Main-Class" value="com.newsbank.permuter.server.SimpleHandler" /> 
+	        </manifest> 
+	    </jar>
+	</target>
+	
+	  <target name="exe" depends="onejar" description="">
+	    <concat destfile="${root.bundle}/${root.jar}/${root.bundle}.sh" binary="true">
+	      <filelist dir="data" files="stub.sh"/>
+	      <filelist dir="${root.bundle}/${root.jar}/" files="${root.bundle}.1.jar"/>
+	    </concat>
+	    <chmod perm="a+x" file="${root.bundle}/${root.jar}/${root.bundle}.sh"/>
+	  </target>
+	
+	<target name="distro" depends="compile,jar">
+		<mkdir dir="${root.bundle}/${root.distro}"/>
+		
+		<copy todir="${root.bundle}/${root.distro}/libs">
+			<fileset dir="${root.libs}"/>
+		</copy>
+		
+		<copy todir="${root.bundle}/${root.distro}/libs">
+			<fileset dir="${root.bundle}/${root.jar}"/>
+		</copy>
+
+		<copy todir="${root.bundle}/${root.distro}">
+			<fileset dir="${root.resources}"/>
+		</copy>
+		
+		<copy todir="${root.bundle}/${root.distro}" file="Documentation.txt"/>
+		<copy todir="${root.bundle}/${root.distro}" file="FormPermuterDocumentation.txt"/>
+		<copy todir="${root.bundle}/${root.distro}" file="GatewayOptionDocumentation.txt"/>
+		<copy todir="${root.bundle}/${root.distro}" file="PhilanPermuterDocumentation.txt"/>
+
+		<!-- on a unix style system, set the exec bit -->
+		<chmod file="${root.bundle}/${root.distro}/permuter-server.sh" perm="a+x"/>
+
+	</target>
+
+    <target name="sftp-distro" depends="distro" description="Copy distro folder to target machine">
+    	<scp todir="${root.ftp.username}:${root.ftp.password}@${root.ftp.servername}:/home/prog/${root.ftp.remotedir}">
+    	  <fileset dir="${root.bundle}/${root.distro}"/>
+    	</scp>
+    </target>
+	
+	<target name="sftp-distro-xvm-10-217" depends="distro" description="Copy distro folder to target machine">
+	       <scp trust="true" todir="${root.ftp.username}:${root.ftp.password}@xvm-10-217:/home/prog/${root.ftp.remotedir}">
+	         <fileset dir="${root.bundle}/${root.distro}"/>
+	       </scp>
+	</target>
+
+</project>

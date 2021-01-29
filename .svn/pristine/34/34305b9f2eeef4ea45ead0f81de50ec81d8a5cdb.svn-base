@@ -1,0 +1,88 @@
+PhilanPermuter (personSearch) Service 
+
+The PhilanPermuter personSearch service assists in the construction of a personSearch query by extracting and processing information received through a personSearch form (XML file). 
+A personSearch query is constructed to find current newspaper articles about a particular person. 
+
+The PhilanPermuter service takes input from a personSearch form (XML file).
+
+The service outputs a triplet string that includes three fully formed triplets that include key information needed to conduct a personSearch. 
+The triplet string can be appended to a base gateway request to retrieve targeted results for a specific person.
+
+The PhilanPermuter service can be run as an endpoint service by using a curl command. 
+
+INPUT
+	personSearch input file in XML format
+	
+OUTPUT
+	Triplet string includes four fully formed triplets	
+
+INTERACTION
+	This service will be called with a POST. 
+	On a POST, the content body is expected to be a personSearch form in XML format. 
+	The service will process the data and output a triplet string.
+
+	In stage-jvm009 environment, personSearch file as input 
+		curl -d @fileName "http://127.0.0.1:8888/PhilanPermuter.txt"
+
+	Other environment running curl, such as louie, personSearch file as input 
+		curl -d @fileName "http://stage-jvm009.newsbank.com:8888/PhilanPermuter.txt"
+
+
+	Append the triplet string to a base gateway request such as: 
+		http://s072.newsbank.com:9090/gateway2/platform/fedsearch6?product=AWNB&auth=pYOQzZlNRvnirwzIPtWvcX9tJsg&type=triplet&maxhits=40
+
+	FULL gateway request example: 
+		http://s072.newsbank.com:9090/gateway2/platform/fedsearch6?product=AWNB&auth=pYOQzZlNRvnirwzIPtWvcX9tJsg&type=triplet&maxhits=40&p_field_primary-0=alltext&p_params_primary-0=weight:1&p_text_primary-0=("Ruth Olson" OR "Ruth Pollio" OR "Pollio Ruth" OR "Ruth O Pollio" OR "Joseph Pollio" OR "Pollio Joseph" OR "Joseph L Pollio")&p_field_second-0=alltext&p_params_second-0=weight:3&p_text_second-0=("Giuseppe Pollio" OR "Albert Pollio" OR "Rose Cicero" OR "Rose Pollio" OR "Rose C Pollio")&p_bool_second-1=OR&p_field_second-1=alltext&p_params_second-1=weight:3&p_text_second-1=("Joseph and Ruth" OR "Joseph & Ruth" OR "Ruth and Joseph" OR "Ruth & Joseph")&p_bool_second-2=OR&p_field_second-2=alltext&p_params_second-2=weight:1&p_text_second-2=("Pollio Family Foundation" OR "Polly-O" OR "Pollio Dairy Company" OR "Grafton")
+
+BEST PRACTICES
+	Target only two generations with each personSearch query, the primary and previous generations, i.e., parent(s), sibling(s) and spouse(s).
+	If there is interest in a philanthropists' children, create a personSearch query for each child, using the child as primary and philanthropist parent(s), sibling(s) and spouse(s) as second.
+
+	For location terms, use city or town without state and/or country specification.
+	Including state or country may be desired in some cases, if so, enter state or country as a separate term.
+
+personSearch INPUT STRUCTURE
+	<personSearch>
+	<primary>
+		<nameFirst/>
+		<nameMid/>
+		<nameLast/>
+	</primary>
+	<primary>
+		<nameFirst/>
+		<nameMid/>
+		<nameLast/>
+	</primary>
+	<second>
+		<nameFirst/>
+		<nameMid/>
+		<nameLast/>
+		<relationship/>
+	</second>
+	<second>
+		<nameFirst/>
+		<nameMid/>
+		<birthLast/>
+		<nameLast/>
+		<relationship/>
+	</second>
+	<terms>
+		<term/>
+		<term/>
+		<term/>
+	</terms>
+	</personSearch>
+
+
+Reference: 
+STARTING PERMUTER SERVICE 
+
+The permuter runtime consists of a number of Java "jar" files and a shell script. 
+Starting via the shell script takes the following form:
+	./permuter-server.sh {-l /path/to/logconfg.xml} {-p port-to-run-on} {-H doc-service-host}
+
+For stage-jvm009 VM installation, cd to the /distro directory and run the following command:
+		nohup ./permuter-server.sh -l permuter-log4j.xml -p 8888 -H "http://localhost:10007/" &
+
+FAQs
+http://louie.newsbank.com/~cobrien/projects/2019person/personSearchServices.html#FAQs

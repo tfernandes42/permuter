@@ -1,0 +1,759 @@
+package com.newsbank.permuter.permutation;
+
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import com.newsbank.permuter.PermutedResult;
+import com.newsbank.permuter.net.DocFetch;
+import com.newsbank.permuter.net.GatewaySearch;
+import com.newsbank.permuter.types.Config;
+import com.newsbank.permuter.types.DocStore;
+
+public class RankEvidence implements Permutation 
+{	
+	private final static Logger kLogger = Logger.getLogger(FSObitPermuter.class);
+	
+	public static String process(String docInfo, String queryInfo, String gatewayOpt)
+	{
+		StringBuilder evidence = new StringBuilder();
+		
+		Map <String, List<DocStore>> docs = new HashMap<String, List<DocStore>>();
+		Map <String, Integer> evid = new HashMap<String, Integer>();
+		List <DocStore> docAtt = new ArrayList<DocStore>();
+		DocStore theDocs = new DocStore();
+
+		SAXBuilder builder = new SAXBuilder();
+		StringBuilder sb = new StringBuilder();
+		String unqVal = null;
+		String UNQ = null;
+		int score = 0;
+
+		Config conf = new Config();
+		String fulltext = conf.getFulltext();
+		String citation = conf.getCitation();
+		String alltext = conf.getAlltext();
+
+		//remove any line feeds in queryInfo
+		queryInfo=queryInfo.trim();
+
+		//kLogger.debug("QueryInfo: "+queryInfo);
+		int q1 = queryInfo.indexOf("p_field_primary-0=");
+		int q2 = queryInfo.indexOf("&p_params_primary-0");
+		String option = queryInfo.substring(q1 + 18, q2 );
+		
+		evidence.append(queryInfo + "\n");
+
+		String [] ft = fulltext.split(" ");
+		String [] cit = citation.split(" ");
+		String [] at = alltext.split(" ");
+		
+		//pull out key phrases in queryInfo to see if it appears in each doc
+		String target = null;
+		String target2 = null;
+		String target3 = null;
+		String prim2 = null;
+		String sec0 = null;
+		String sec2 = null;
+		String sec4 = null;
+		List<String> words = new ArrayList<String>();
+		List<String> words2 = new ArrayList<String>();
+		List<String> words3 = new ArrayList<String>();
+		List<String> words4 = new ArrayList<String>();
+		List<String> words5 = new ArrayList<String>();
+
+		//grab what's inside of each triplet 
+		String prim0 = queryInfo.substring(queryInfo.indexOf("primary-0=(") +11, queryInfo.indexOf(")"));
+		if(queryInfo.contains("primary-2=(")) 
+		{
+			prim2 = queryInfo.substring(queryInfo.indexOf("primary-2=(") +11, queryInfo.indexOf(")", queryInfo.indexOf("primary-2=(")));
+			if (prim2.contains("ONEAR/2")) 
+			{
+				String p2 = prim2.replace("ONEAR/2", "n3ar");
+				prim2 = null;
+				prim2 = p2;
+			}
+		}
+
+		if(queryInfo.contains("second-0=(")) 
+		{
+			sec0 = queryInfo.substring(queryInfo.indexOf("second-0=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-0=(")));
+		}
+
+		if(queryInfo.contains("second-2=(")) 
+		{
+			sec2 = queryInfo.substring(queryInfo.indexOf("second-2=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-2=(")));
+			if (sec2.contains("ONEAR/2")) 
+			{
+				String s2 = sec2.replace("ONEAR/2", "n3ar");
+				sec2 = null;
+				sec2 = s2;
+			}
+		}
+		
+		if(queryInfo.contains("second-4=(")) 
+		{
+			sec4 = queryInfo.substring(queryInfo.indexOf("second-4=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-4=(")));
+		}
+
+		//break up data inside triplets into terms  
+		String [] st1 = prim0.split("OR");
+		words=terms(st1);
+		
+		if(sec0 != null)
+		{
+			String [] st2 = sec0.split("OR");
+			words2=terms(st2);
+		}
+		if(sec4 != null)
+		{
+			String [] st3 = sec4.split("OR");
+			words3=terms(st3);
+		}
+		if(prim2 != null)
+		{
+			String [] st4 = prim2.split("OR");
+			words4=terms(st4);
+		}
+		if(sec2 != null)
+		{
+			String [] st5 = sec2.split("OR");
+			words5=terms(st5);
+		}
+
+		try
+		{
+			Document document = (Document) builder.build(new StringReader(docInfo));
+
+			//root element (personSearch)
+			Element rootNode = document.getRootElement();
+			
+			@SuppressWarnings("unchecked")
+			
+			List<Element> nbx = rootNode.getChildren("NBX");
+			Iterator<Element> it = nbx.iterator();
+
+			//grab everything that's inside of the corresponding elements; FULLTEXT/CITATION/ALLTEXT 
+			while(it.hasNext()) 
+			{
+				sb = new StringBuilder();
+				Element nbxNode = it.next();
+				
+				String unq = nbxNode.getChildText("UNQ");
+				
+				if(option != null && option.toUpperCase().equals("FULLTEXT")) 
+				{
+					for(int i = 0; i < ft.length; i++) 
+					{
+						Element node = nbxNode.getChild(ft[i]);
+	
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(ft[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+				else if(option != null && option.toUpperCase().equals("CITATION")) 
+				{
+					for(int i = 0; i < cit.length; i++) 
+					{
+						Element node = nbxNode.getChild(cit[i]);
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(cit[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+				else if(option == null || option.toUpperCase().equals("ALLTEXT")) 
+				{
+					for(int i = 0; i < at.length; i++) 
+					{
+						Element node = nbxNode.getChild(at[i]);
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(at[i]) + " ");
+							elmWithin(node, sb);
+						}
+					}
+				}
+				else {
+					for(int i = 0; i < at.length; i++) 
+					{
+						Element node = nbxNode.getChild(at[i]);
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(at[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+
+				String fileString = null;
+				//take out all punctuation and tokenize
+				fileString = sb.toString().replaceAll("[^\\p{L} ]", " ").toString();
+				while (fileString.contains("  ")) 
+				{
+					fileString = fileString.replace("  ", " ");
+				}
+				//System.out.println("fileString: "+fileString);
+				//kLogger.debug(fileString);
+
+				//count how many occurrence of each phrase there is in the document 
+				theDocs.setQuery(queryInfo);
+				evidence.append("\nUNQ) "+unq + "\n");
+				theDocs.setUnq(unq);
+				UNQ = unq;
+				evidence.append("Token count) "+fileString.length() + "\n");
+				theDocs.setTokCount(fileString.length());
+				evidence.append("Evidence) \n");
+				score = 0;
+				
+				//for prim-2
+				List<String> slist = new ArrayList<String>();
+				onearMatch(slist,fileString, words4, evidence, evid);
+				LinkedHashSet<String> lhSetNumbers = new LinkedHashSet<String>(slist);
+				for(int a =0; a < lhSetNumbers.size(); a++) 
+				{
+					score = score + 2;
+				}
+
+				//sec-2
+				List<String> slist2 = new ArrayList<String>();
+				onearMatch(slist2,fileString, words5, evidence, evid);
+				LinkedHashSet<String> lhSetNumbers2 = new LinkedHashSet<String>(slist2);
+				for(int a =0; a < lhSetNumbers2.size(); a++) 
+				{
+					score ++;
+				}
+
+				//for prim-0
+				int idx = 0;
+				for (int a = 0; a < words.size(); a ++) 
+				{
+					target = words.get(a);
+					int count = 0;
+					int c = 0;
+					if(fileString != null && target != null) 
+					{
+						while ((idx = fileString.toUpperCase().indexOf(target.toUpperCase(), idx)) != -1) 
+						{
+							c++;
+							count=1;
+							idx += target.length();
+						}
+						if(count==1) 
+						{
+							score= score + 2;
+						}
+					}
+					if(count != 0) 
+					{
+						evidence.append(target+ ": " + c + "\n");
+						evid.put(target, c);
+					}
+				}
+				//for sec-0
+				int idx2 = 0;
+				for (int a = 0; a < words2.size(); a ++) 
+				{
+					target2 = words2.get(a);
+					int count = 0;
+					int c = 0;
+					if(fileString != null && target2 != null) 
+					{
+						while ((idx2 = fileString.toUpperCase().indexOf(target2.toUpperCase(), idx2)) != -1) 
+						{
+							c++;
+							count=1;
+							idx2 += target2.length();
+						}
+						if(count==1) 
+						{
+							score= score + 1;
+						}
+					}
+					if(count != 0) 
+					{
+						evidence.append(target2+ ": " + c + "\n");
+						evid.put(target2, c);
+					}
+				}
+				//for sec-4
+				int idx3 = 0;
+				for (int a = 0; a < words3.size(); a ++) 
+				{
+					target3 = words3.get(a);
+					int count = 0;
+					int c = 0;
+					if(fileString != null && target3 != null) 
+					{
+						while ((idx3 = fileString.toUpperCase().indexOf(target3.toUpperCase(), idx3)) != -1) 
+						{
+							c++;
+							count=1;
+							idx3 += target3.length();
+						}
+						if(count==1) 
+						{
+							score= score + 1;
+						}
+					}
+					if(count != 0) 
+					{
+						evidence.append(target3+ ": " + c + "\n");
+						evid.put(target3, c);
+					}
+				}
+				theDocs.setScore(score);
+				//adding all documents (w their attributes) to DocStore list
+				docAtt.add(theDocs);
+				evidence.append("\nscore) "+score+ "\n"
+						+ "____________________________\n");
+				
+				//adding all key information to documents map
+				docs.put(score + " " + UNQ, docAtt);
+			}
+		}
+		catch (Throwable io) 
+		{
+			io.printStackTrace(System.err);
+			} 
+		
+		Set<String> set = docs.keySet();
+		Iterator<String> setIt = set.iterator();
+		StringBuilder key = new StringBuilder();
+		
+		while(setIt.hasNext()) 
+		{
+			unqVal= setIt.next();
+			key.append(unqVal+",");
+		}
+		String [] arr = key.toString().split(",");
+		
+		//this is the sorted list of UNQs by score
+		sort(arr);
+		
+		//display sorted score + UNQ
+		/*
+		 StringBuilder output = new StringBuilder();
+		 for(int x = 0; x < arr.length;x++) 
+		{
+			output.append(arr[x]+" \n");
+		}*/
+		StringBuilder bucket1 = new StringBuilder();
+		StringBuilder bucket2 = new StringBuilder();
+		StringBuilder bucket3 = new StringBuilder();
+		//boolean flag1 = false;
+		boolean flag2 = false;
+		//boolean one = false;
+		boolean two = false;
+		int theScore = 0;
+		String [] creds = null;
+		String prod = null;
+		String auth = null;
+		String type = null;
+		String apikey = null;
+		String maxhits = null;
+		String gatewayResult = null;
+		int scorelimit = 0;
+		
+		if (gatewayOpt!=null) 
+		{
+			if(gatewayOpt.contains("cust_auth_type"))
+			{
+				if(gatewayOpt.contains("%26"))
+				{
+					creds = gatewayOpt.split("%26");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("prod: "+prod);
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("apikey: "+apikey);
+						}
+						if(creds[i].contains("cust_auth%3D")){
+							auth=creds[i].split("%3D")[1].replace("%7C", "|").trim();
+							kLogger.debug("auth!!: "+auth);
+						}
+						if(creds[i].contains("cust_auth_type")){
+							type=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("cust_auth_type: "+type);
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("prod: "+maxhits);
+						}
+						if(creds[i].contains("scorelimit")) {
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim());
+							kLogger.debug("scorelimit: "+scorelimit);
+						}
+					}
+				}
+				else if (gatewayOpt.contains("&"))
+				{
+					creds= gatewayOpt.split("&");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("prod: "+prod);
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("apikey: "+apikey);
+						}
+						if(creds[i].contains("cust_auth=")){
+							auth=creds[i].split("=")[1].replace("%7C", "|").trim();
+							kLogger.debug("auth!!: "+auth);
+						}
+						if(creds[i].contains("cust_auth_type")){
+							type=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("cust_auth_type: "+type);
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("prod: "+maxhits);
+						}
+						if(creds[i].contains("scorelimit")) {
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim());
+							kLogger.debug("scorelimit: "+scorelimit);
+						}
+					}
+				}
+				if(maxhits != null) 
+				{
+					bucket1.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits="+ maxhits +"&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket2.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits="+ maxhits +"&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket3.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits="+ maxhits +"&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+	
+				}
+				else {
+					bucket1.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket2.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket3.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+				}
+			}
+			else 
+			{
+				if(gatewayOpt.contains("%26"))
+				{
+					creds = gatewayOpt.split("%26");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("prod: "+prod);
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("apikey: "+apikey);
+						}
+						if(creds[i].contains("auth")){
+							auth=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("auth: "+auth);
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+							kLogger.debug("prod: "+maxhits);
+						}
+						if(creds[i].contains("scorelimit")) {
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim());
+							kLogger.debug("scorelimit: "+scorelimit);
+						}
+					}
+				}
+				else if (gatewayOpt.contains("&"))
+				{
+					creds= gatewayOpt.split("&");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("prod: "+prod);
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("apikey: "+apikey);
+						}
+						if(creds[i].contains("auth")){
+							auth=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("auth: "+auth);
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+							kLogger.debug("prod: "+maxhits);
+						}
+						if(creds[i].contains("scorelimit")) {
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim());
+							kLogger.debug("scorelimit: "+scorelimit);
+						}
+					}
+				}
+				if(maxhits != null) 
+				{
+					bucket1.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits="+ maxhits +"&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket2.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits="+ maxhits +"&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket3.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits="+ maxhits +"&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+				}
+				else {
+					bucket1.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket2.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucket3.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+				}
+			}
+			
+			//divide into buckets >= 4 (possibly 3)
+			for(int x = 0; x < arr.length;x++) 
+			{
+				theScore = Integer.parseInt(arr[x].substring(0, arr[x].indexOf(" ")).trim());
+				//else user inputs buck number
+				if(theScore >= scorelimit) 
+				{
+					two = true;
+					if(flag2 == true) 
+					{
+						bucket2.append("|");
+					}
+					flag2 = true;
+					
+					String unq = arr[x].substring(arr[x].indexOf(" "), arr[x].length()).trim();
+					bucket2.append(unq);
+					kLogger.debug("UNQs: "+bucket2.toString());				
+				}
+				/*if(theScore >= 4) 
+				{
+					one = true;
+					if(flag1 == true) 
+					{
+						bucket1.append("|");
+					}
+					flag1 = true;
+					
+					String unq = arr[x].substring(arr[x].indexOf(" "), arr[x].length()).trim();
+					bucket1.append(unq);
+					//kLogger.debug("UNQs: "+bucket1.toString());
+				}*/
+			}
+			//output.append(docs.get(arr[0]).get(0).getTokCount());
+			
+			//build UNQs into triplet data and generate gateway call to grab ordered UNQS
+			GatewaySearch gs= new GatewaySearch();
+			String s = null;
+			
+			//output highest bucket possible 
+			/*if(one == true)
+			{
+				s =gs.getURL(bucket1.toString());
+			}*/
+			if(two == true)
+			{
+				s =gs.getURL(bucket2.toString());
+			}
+			//gatewaySearch for empty bucket3, if no doc(s) in high bucket
+			else 
+				s =gs.getURL(bucket3.toString());
+			
+			int theQueryIndex = s.indexOf('?');
+			gatewayResult = gs.getDocument(s.substring(0, theQueryIndex), s.substring(theQueryIndex+1));
+			
+			//kLogger.debug("URL!: "+s);
+			return gatewayResult;
+		}
+		else
+		return evidence.toString();
+		//return output.toString();
+	}
+	
+	//see if any of key ONEAR terms are in the docs
+	public static void onearMatch(List <String> slist, String fileString, List<String> words, StringBuilder evidence, 
+			Map <String, Integer> evid)
+	{
+		for(int i = 0; i < words.size(); i++) 
+		{
+			Pattern p =null;
+			Matcher m =null;
+			String wrd = words.get(i);
+			
+			if(wrd.contains("n3ar")) 
+			{
+				String [] str=wrd.split("n3ar");
+				p = Pattern.compile(str[0].trim().toUpperCase()+" (?:\\s*[a-zA-Z]+){1,2} "+ str[1].trim().toUpperCase());
+				m = p.matcher(fileString.toUpperCase());
+				int count = 0;
+
+				while(m.find()) 
+				{ 
+					count ++;
+					slist.add(m.group());
+					evidence.append("\n" + m.group());
+					evid.put(m.group(), 1);
+					//add evidence to list or map
+				}	
+				if(count != 0) 
+				{
+					evidence.append("\ncount: "+count + "\n");
+				}
+			}
+		}
+	}
+	//see if any of key 'regular' terms are in the docs -> in progress
+	public static void wordMatch(String target, int score, String fileString, List<String> words, StringBuilder evidence, 
+			Map <String, Integer> evid)		
+	{
+		int idx = 0;
+		for (int a = 0; a < words.size(); a ++) 
+		{
+			target = words.get(a);
+			int count = 0;
+			int c = 0;
+			if(fileString != null && target != null) 
+			{
+				while ((idx = fileString.toUpperCase().indexOf(target.toUpperCase(), idx)) != -1) 
+				{
+					c++;
+					count=1;
+					idx += target.length();
+				}
+				if(count==1) 
+				{
+					score= score + 2;
+				}
+			}
+			if(count != 0) 
+			{
+				evidence.append(target+ ": " + c + "\n");
+				evid.put(target, c);
+			}
+		}	
+	}
+	
+	//break up data inside triplets into terms  
+	public static List<String> terms(String [] st) 
+	{
+		String word = null;
+		List<String> words = new ArrayList<String>();
+		for (int i= 0; i < st.length;i++) 
+		{
+			word = st[i];
+			String w = null;
+			if(word.contains("\""))
+			{
+				w = word.replace("\"", "");
+				word=null;
+				word= w;
+			}
+			words.add(word.trim());
+		   	}
+		return words;
+	}
+	public static void elmWithin(Element node, StringBuilder sb) 
+	{
+		if(node.getChildren() != null) 
+		{
+			@SuppressWarnings("unchecked") 
+			List<Element> subList = node.getChildren();
+			Iterator<Element> it = subList.iterator();
+
+			//iterate through children list			
+			while(it.hasNext()) 
+			{
+				Element e = it.next();
+				sb.append(e.getText());
+			}
+		}
+	}
+	
+	public static void sort(String [] arr) 
+	{
+		Integer.parseInt(arr[0].substring(0, arr[0].indexOf(" ")));
+
+		for(int i=0;i<arr.length-1;i++)
+		{
+		    for(int j=i+1;j<arr.length;j++)
+		    {
+		        if(Integer.parseInt(arr[i].substring(0, arr[i].indexOf(" ")))
+		        		< Integer.parseInt(arr[j].substring(0, arr[j].indexOf(" "))))
+		        {
+		        		String temp = arr[i];
+		        		arr[i] = arr[j];
+		        		arr[j] = temp;
+		        }
+		    }
+		}
+	}
+
+	@Override
+	public PermutedResult convert(String inData, String inFormat) throws Throwable 
+	{
+		String docInfo = null;
+		String queryInfo = null;	
+		String gatewayOpt = null;
+
+		SAXBuilder builder1 = new SAXBuilder();
+		Document document1 = (Document) builder1.build(new StringReader(inData));
+		Element rootNode = document1.getRootElement(); 
+
+		//still getting it from the test file 
+		if(rootNode.getChildText("doc") != null) 
+		{
+			docInfo = "<docs>"+rootNode.getChildText("doc")+ "</docs>";
+		}
+		else if(rootNode.getChildText("id") != null) 
+		{
+			String c = null;
+			
+			StringBuilder sb = new StringBuilder();
+			String ID = rootNode.getChildText("id");
+			
+			//can change DocFetch to gateway call for all UNQs if speed needed
+			if (ID.contains(",")) 
+			{
+				String [] st = ID.split(",");
+				for (int i= 0; i < st.length;i++) 
+				{
+					String id = st[i].trim();
+					kLogger.debug("ID: "+id);
+					DocFetch docFetch = new DocFetch();
+					String url = docFetch.getURL(id);
+					docInfo = docFetch.getDocument(url);
+					sb.append(docInfo.substring(43, docInfo.length() - 12));
+				}
+				
+				docInfo= null;
+				docInfo = "<docs>" + sb.toString() + "</docs>";
+			}
+
+			else 
+			{
+			DocFetch docFetch = new DocFetch();
+			String url = docFetch.getURL(ID);
+			//kLogger.debug("url: " + url);
+			 
+			docInfo = docFetch.getDocument(url);
+			c= docInfo.substring(43, docInfo.length() - 12);
+			docInfo = null;
+			docInfo = "<docs>" + c + "</docs>";
+			}
+		}
+
+		queryInfo = rootNode.getChildText("query");
+		
+		@SuppressWarnings("static-access")
+		String result = this.process(docInfo, queryInfo, gatewayOpt);
+		return new PermutedResult("text/plain", result);
+	}
+}

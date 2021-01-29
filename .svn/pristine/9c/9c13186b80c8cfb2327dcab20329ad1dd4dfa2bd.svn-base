@@ -1,0 +1,15 @@
+package com.newsbank.permuter.permutation;
+
+import com.newsbank.permuter.PermutedResult;
+
+public class ThrowError implements Permutation
+	{
+
+	@Override
+	public PermutedResult convert(String inData, String inFormat)
+			throws Throwable
+		{
+		throw new Exception("An Exception for format: " + inFormat);		
+		}
+
+	}

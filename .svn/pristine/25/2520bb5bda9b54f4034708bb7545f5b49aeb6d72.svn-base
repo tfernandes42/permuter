@@ -1,0 +1,62 @@
+package com.newsbank.permuter.net;
+
+public class DocFetch {
+	private static String hostName;
+	
+	public static String getHostName() {
+		return hostName;
+	}
+
+	public static void setHostName(String hostName) {
+		DocFetch.hostName = hostName;
+	}
+	
+	public String getURL(String id) {
+		return getURL(id, getHostName());
+	}
+
+	public String getURL (String ID, String host) {
+		
+		if(ID.contains("/") ) {
+			int i = ID.indexOf("/");
+			ID = ID.substring(i+1);
+		}
+		
+		//Make sure ID contains 16 digits
+		if(ID.length() != 16) {
+			System.err.println("Not an ID");
+		}
+
+		if(host.substring(host.length()).equals("/") ) {
+			host = host.substring(0, host.length() -1 );
+		}
+		
+		//make sure host starts with http://
+		if(!host.startsWith("http://")) {
+			host = "http://" + host;
+		}
+		
+		//make sure host ends with /
+		//if(!host.endsWith("/")) {
+		//	host += "/";
+		//}
+		
+		if(!host.contains(":")) {
+			System.err.println("No port #");
+		}
+		
+		return host + "DocService/news/" + ID;
+	}
+
+	public String getDocument(String URL) {
+
+		String theData = null;
+		
+		try {
+			 theData = HttpRequest.doGetRequest(URL);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return theData; 
+	}
+}

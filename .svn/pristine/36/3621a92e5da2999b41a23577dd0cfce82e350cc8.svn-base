@@ -1,0 +1,860 @@
+package com.newsbank.permuter.permutation;
+
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import com.newsbank.permuter.PermutedResult;
+import com.newsbank.permuter.net.DocFetch;
+import com.newsbank.permuter.net.GatewaySearch;
+import com.newsbank.permuter.types.Config;
+import com.newsbank.permuter.types.DocStore;
+
+public class RankEvidence implements Permutation 
+{	
+	private final static Logger kLogger = Logger.getLogger(RankEvidence.class);
+	
+	public static String process(String docInfo, String queryInfo)
+	{
+		StringBuilder evidence = new StringBuilder();
+		
+		//kLogger.debug("DOCINFO!: "+docInfo);
+		//kLogger.debug("queryInfo!: "+queryInfo);
+		//System.exit(0);
+		
+		Map <String, List<DocStore>> docs = new HashMap<String, List<DocStore>>();
+		Map <String, Integer> evid = new HashMap<String, Integer>();
+		List <DocStore> docAtt = new ArrayList<DocStore>();
+		DocStore theDocs = new DocStore();
+
+		StringBuilder docrefs = new StringBuilder();
+		//StringBuilder docid = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
+		SAXBuilder builder = new SAXBuilder();
+		String unqVal = null;
+		String UNQ = null;
+		int score = 0;
+
+		Config conf = new Config();
+		String fulltext = conf.getFulltext();
+		String citation = conf.getCitation();
+		String alltext = conf.getAlltext();
+
+		//remove any line feeds in queryInfo
+		queryInfo=queryInfo.trim();
+		
+		int q1 = queryInfo.indexOf("p_field_primary-0=");
+		int q2 = queryInfo.indexOf("&p_params_primary-0");
+		String option = queryInfo.substring(q1 + 18, q2 ).toUpperCase();
+
+		evidence.append(queryInfo + "\n");
+
+		String [] ft = fulltext.split(" ");
+		String [] cit = citation.split(" ");
+		String [] at = alltext.split(" ");
+		
+		//pull out key phrases in queryInfo to see if it appears in each doc
+		String prim2 = null;
+		String sec0 = null;
+		String sec2 = null;
+		String sec4 = null;
+		List<String> words = new ArrayList<String>();
+		List<String> words2 = new ArrayList<String>();
+		List<String> words3 = new ArrayList<String>();
+		List<String> words4 = new ArrayList<String>();
+		List<String> words5 = new ArrayList<String>();
+
+		//grab what's inside of each triplet 
+		String prim0 = queryInfo.substring(queryInfo.indexOf("primary-0=(") +11, queryInfo.indexOf(")"));
+		if (prim0.contains("ONEAR/1")) 
+		{
+			String p = prim0.replace("ONEAR/1", "n1ar");
+			prim0 = null;
+			prim0 = p;
+			p=null;
+			p=prim0.replace("?", "qmark1");
+			prim0 = null;
+			prim0 = p;
+		}
+		if(queryInfo.contains("primary-2=(") && !queryInfo.contains("primary-2=()")) 
+		{
+			prim2 = queryInfo.substring(queryInfo.indexOf("primary-2=(") +11, queryInfo.indexOf(")", queryInfo.indexOf("primary-2=(")));
+			if (prim2.contains("ONEAR/2")) 
+			{
+				String p2 = prim2.replace("ONEAR/2", "n3ar");
+				prim2 = null;
+				prim2 = p2;
+			}
+		}
+
+		if(queryInfo.contains("second-0=(") && !queryInfo.contains("second-0=()")) 
+		{
+			sec0 = queryInfo.substring(queryInfo.indexOf("second-0=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-0=(")));
+		}
+
+		if(queryInfo.contains("second-2=(") && !queryInfo.contains("second-2=()")) 
+		{
+			sec2 = queryInfo.substring(queryInfo.indexOf("second-2=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-2=(")));
+			if (sec2.contains("ONEAR/2")) 
+			{
+				String s2 = sec2.replace("ONEAR/2", "n3ar");
+				sec2 = null;
+				sec2 = s2;
+			}
+		}
+
+		if(queryInfo.contains("second-4=(")&& !queryInfo.contains("second-4=()")) 
+		{
+			sec4 = queryInfo.substring(queryInfo.indexOf("second-4=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-4=(")));
+		}
+		
+		String n1ar = null;
+		//break up data inside triplets into terms  
+		String [] st1 = prim0.split("OR");
+		words=terms(st1);
+		for (String w : words)
+		{
+			if(w.contains("n1ar")) {
+				n1ar = w;
+			}
+		}
+		words.remove(n1ar);
+		
+		if(sec0 != null)
+		{
+			String [] st2 = sec0.split("OR");
+			words2=terms(st2);
+		}
+		if(sec4 != null)
+		{
+			String [] st3 = sec4.split("OR");
+			words3=terms(st3);
+		}
+		if(prim2 != null)
+		{
+			String [] st4 = prim2.split("OR");
+			words4=terms(st4);
+		}
+		if(sec2 != null)
+		{
+			String [] st5 = sec2.split("OR");
+			words5=terms(st5);
+		}
+		if(n1ar != null)
+		{
+			words5.add(n1ar);
+		}
+		
+		try
+		{
+			Document document = (Document) builder.build(new StringReader(docInfo));
+
+			//root element (personSearch)
+			Element rootNode = document.getRootElement();
+			
+			@SuppressWarnings("unchecked")
+			
+			List<Element> nbx = rootNode.getChildren("NBX");
+			Iterator<Element> it = nbx.iterator();
+
+			//grab everything that's inside of the corresponding elements; FULLTEXT/CITATION/ALLTEXT 
+			while(it.hasNext()) 
+			{
+				sb = new StringBuilder();
+				Element nbxNode = it.next();
+				
+				String unq = nbxNode.getChildText("UNQ");
+				
+				if(option != null && option.equals("FULLTEXT")) 
+				{
+					for(int i = 0; i < ft.length; i++) 
+					{
+						Element node = nbxNode.getChild(ft[i]);
+	
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(ft[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+				else if(option != null && option.equals("CITATION")) 
+				{
+					for(int i = 0; i < cit.length; i++) 
+					{
+						Element node = nbxNode.getChild(cit[i]);
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(cit[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+				else if(option == null || option.equals("ALLTEXT")) 
+				{
+					for(int i = 0; i < at.length; i++) 
+					{
+						Element node = nbxNode.getChild(at[i]);
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(at[i]) + " ");
+							elmWithin(node, sb);
+						}
+					}
+				}
+				else {
+					for(int i = 0; i < at.length; i++) 
+					{
+						Element node = nbxNode.getChild(at[i]);
+						if(node != null) 
+						{
+							sb.append(nbxNode.getChildText(at[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+				
+				//take out all punctuation and tokenize
+				String fileString = null;
+				fileString = sb.toString().replaceAll("[^\\p{L} ]", " ").toString();
+				while (fileString.contains("  ")) 
+				{
+					fileString = fileString.replace("  ", " ");
+				}
+				//System.out.println("fileString: "+fileString);
+				//kLogger.debug(fileString);
+				
+				//count how many occurrence of each phrase there is in the document 
+				theDocs.setQuery(queryInfo);
+				evidence.append("\nUNQ) "+unq + "\n");
+				theDocs.setUnq(unq);
+				UNQ = unq;
+				evidence.append("Token count) "+fileString.length() + "\n");
+				theDocs.setTokCount(fileString.length());
+				evidence.append("Evidence) \n");
+				score = 0;
+				
+				//access which ones get 2 VS 1 point for towards score
+				boolean scoretwo = true;
+				
+				//for prim-2
+				score=onearMatch(score, scoretwo, fileString, words4, evidence, evid);
+				scoretwo = false;
+				
+				//sec-2
+				score=onearMatch(score, scoretwo, fileString, words5, evidence, evid);
+				scoretwo = true;
+				
+				//for prim-0
+				score=wordMatch(score, scoretwo, fileString, words, evidence, evid);
+				scoretwo = false;
+				
+				//for sec-0
+				score=wordMatch(score, scoretwo, fileString, words2, evidence, evid);
+				
+				//for sec-4
+				score=wordMatch(score, scoretwo, fileString, words3, evidence, evid);
+				theDocs.setScore(score);
+				
+				//adding all documents (w their attributes) to DocStore list
+				docAtt.add(theDocs);
+				evidence.append("\nscore) "+score+ "\n"
+						+ "____________________________\n");
+				
+				//adding all key information to documents map
+				docs.put(score + " " + UNQ, docAtt);
+			}
+		}
+		catch (Throwable io) 
+		{
+			io.printStackTrace(System.err);
+		}
+		
+		//get each key in the document 
+		Set<String> set = docs.keySet();
+		Iterator<String> setIt = set.iterator();
+		StringBuilder key = new StringBuilder();
+		
+		while(setIt.hasNext()) 
+		{
+			unqVal= setIt.next();
+			key.append(unqVal+",");
+		}
+		String [] arr = key.toString().split(",");
+		
+		StringBuilder scores = new StringBuilder();
+		boolean comma = false;
+		int scorelimit = 0;
+		int theCount = 0;
+		
+		//sort list of UNQs by score
+		sort(arr);
+		
+		if(queryInfo.contains("docref")) {
+			//docrefs w/ count; just need to add a param to activate this output option 
+			if(queryInfo.contains("%26"))
+			{
+				if(queryInfo.contains("&")) {
+					String qi = queryInfo.replace("&", "%26");
+					queryInfo=null;
+					queryInfo=qi;
+				}
+				if(queryInfo.contains("=")) {
+					String qi = queryInfo.replace("=", "%3D");
+					queryInfo=null;
+					queryInfo=qi;
+				}
+				
+				String [] creds = queryInfo.split("%26");
+				for (int i = 0; i < creds.length; i++) {
+					if(creds[i].contains("scorelimit")) {
+						scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("scorelimit%3D")+13, creds[i].indexOf("scorelimit%3D")+14).trim());
+					}
+				}
+			}
+			else if (queryInfo.contains("&"))
+			{
+				String [] creds = queryInfo.split("&");
+				creds= queryInfo.split("&");
+				for (int i = 0; i < creds.length; i++) {
+					if(creds[i].contains("scorelimit")) {
+						//scoreParam = true;
+						scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("scorelimit=")+11, creds[i].indexOf("scorelimit=")+12).trim());
+					}
+				}
+			}
+			docrefs.append("<docrefs>");
+			for(int x = 0; x < arr.length;x++) 
+			{
+				int theScore = Integer.parseInt(arr[x].substring(0, arr[x].indexOf(" ")).trim());
+				if(theScore >= scorelimit) 
+				{
+					theCount++;
+					docrefs.append("<docref>news/"+arr[x].split(" ")[1]+"</docref>");
+					scores.append(arr[x].split(" ")[0]);
+					if(x != arr.length-1)
+					{
+						scores.append(",");
+					}
+				}
+			}
+			docrefs.append("<count>"+theCount+"</count>");
+			docrefs.append("</docrefs>");
+		}
+		
+		//docid + scores option
+		/*if(queryInfo.contains("docid")) {
+			docid.append("<personsearch>");
+			//for loop through all docIDs and scores
+			docid.append("<rank_evidence>"+"put scores in here"+"</rank_evidence>");
+			docid.append("</personsearch>");
+		}*/
+		
+		//populate scores array
+		for(int x = 0; x < arr.length;x++) 
+		{
+			if(comma == true) 
+			{
+				scores.append(",");
+			}
+			scores.append(arr[x].split(" ")[0]);
+			comma = true;
+		}
+		
+		//evaluate rank cutoff using Colleen's average method 
+		int average = 0;
+		String[] scoreArray = scores.toString().split(",");
+		int last = Integer.parseInt(scoreArray[scoreArray.length-1]);
+		//if lowest score is greater than 3 keep them all
+		if(scoreArray != null && scoreArray.length > 1 && last < 3) 
+		{
+			//get top half of scoreArray
+			int half = scoreArray.length / 2 + 1;
+			kLogger.debug("half!!: "+half);
+			String [] halfArray =Arrays.copyOfRange(scoreArray, 0, half);
+
+			//find average of top half, round down, and keep that score as the cutoff 
+			for(int i = 0; i< halfArray.length;i++)
+			{
+				average += Integer.parseInt(halfArray[i]);
+			}
+			scorelimit=(int)1.0d * average/halfArray.length;
+			if(scorelimit > 3) {
+				scorelimit = 3;
+			}
+			kLogger.debug("average!!: "+average);
+		}
+
+		StringBuilder bucket = new StringBuilder();
+		StringBuilder bucketNone = new StringBuilder();
+		boolean flag = false;
+		boolean bool0 = false;
+		int theScore = 0;
+		String [] creds = null;
+		String prod = null;
+		String auth = null;
+		String type = null;
+		String apikey = null;
+		String maxhits = null;
+		String gatewayResult = null;
+		
+		//gateway search set up
+		if (queryInfo.contains("product") && !queryInfo.contains("docref") ) 
+		{
+			//if cust_auth_type is used
+			if(queryInfo.contains("cust_auth_type"))
+			{
+				//normalize formatting to all encoded 
+				if(queryInfo.contains("%26"))
+				{
+					if(queryInfo.contains("&")) {
+						String qi = queryInfo.replace("&", "%26");
+						queryInfo=null;
+						queryInfo=qi;
+					}
+					if(queryInfo.contains("=")) {
+						String qi = queryInfo.replace("=", "%3D");
+						queryInfo=null;
+						queryInfo=qi;
+					}
+					creds = queryInfo.split("%26");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("cust_auth%3D")){
+							auth=creds[i].split("%3D")[1].replace("%7C", "|").trim();
+						}
+						if(creds[i].contains("cust_auth_type")){
+							type=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("scorelimit")) {
+							//scoreParam = true;					//scorelimit
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("scorelimit%3D")+13, creds[i].indexOf("scorelimit%3D")+14).trim());
+						}
+					}
+				}
+				else if (queryInfo.contains("&"))
+				{
+					creds= queryInfo.split("&");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("cust_auth=")){
+							auth=creds[i].split("=")[1].replace("%7C", "|").trim();
+						}
+						if(creds[i].contains("cust_auth_type")){
+							type=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("scorelimit")) {
+							//scoreParam = true;
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("scorelimit=")+11, creds[i].indexOf("scorelimit=")+12).trim());
+						}
+					}
+				}
+				if(maxhits != null) 
+				{
+					bucket.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-"+ maxhits +"&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucketNone.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-"+ maxhits +"&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+	
+				}
+				else {
+					bucket.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucketNone.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&searchLogtf=true&product="+prod+"&api_key="+apikey+"&cust_auth_type="+type+"&cust_auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+				}
+			}
+			else //if auth key is used (the one that expires every 24 hours
+			{
+				if(queryInfo.contains("%26"))
+				{
+					if(queryInfo.contains("&")) {
+						String qi = queryInfo.replace("&", "%26");
+						queryInfo=null;
+						queryInfo=qi;
+					}
+					if(queryInfo.contains("=")) {
+						String qi = queryInfo.replace("=", "%3D");
+						queryInfo=null;
+						queryInfo=qi;
+					}
+					creds = queryInfo.split("%26");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("auth")){
+							auth=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("%3D")+3, creds[i].length()).trim();
+						}
+						if(creds[i].contains("scorelimit")) {
+							//scoreParam = true;					//scorelimit
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("scorelimit%3D")+13, creds[i].indexOf("scorelimit%3D")+14).trim());
+						}
+					}
+				}
+				else if (queryInfo.contains("&"))
+				{
+					creds= queryInfo.split("&");
+					for (int i = 0; i < creds.length; i++) {
+						if(creds[i].contains("product")) {
+							prod=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("api_key")){
+							apikey=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("auth")){
+							auth=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("maxhits")) {
+							maxhits=creds[i].substring(creds[i].indexOf("=")+1, creds[i].length()).trim();
+						}
+						if(creds[i].contains("scorelimit")) {
+							//scoreParam = true;
+							scorelimit=Integer.parseInt(creds[i].substring(creds[i].indexOf("scorelimit=")+11, creds[i].indexOf("scorelimit=")+12).trim());
+						}
+					}
+				}
+				if(maxhits != null) 
+				{
+					bucket.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-"+ maxhits +"&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucketNone.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-"+ maxhits +"&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+				}
+				else {
+					bucket.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=");
+					bucketNone.append("type=triplet&searchLogtf=true&offset=1&YMD_date:D&maxhits=-120&product="+prod+"&api_key="+apikey+"&auth="+auth+"&hide_search_params=true&p_field_base-0=unq&p_text_base-0=none");
+				}
+			}
+			
+			//divide into buckets >= 4 (possibly 3)
+			for(int x = 0; x < arr.length;x++) 
+			{
+				theScore = Integer.parseInt(arr[x].substring(0, arr[x].indexOf(" ")).trim());
+				//else user inputs buck number
+				if(theScore >= scorelimit /*&& scoreParam == true*/) 
+				{
+					bool0 = true;
+					if(flag == true) 
+					{
+						bucket.append("|");
+					}
+					flag = true;
+					
+					String unq = arr[x].substring(arr[x].indexOf(" "), arr[x].length()).trim();
+					bucket.append(unq);
+					//kLogger.debug("UNQs: "+bucket.toString());				
+				}
+				/*else if(theScore >= average && scoreParam == false) 
+				{
+					bool0 = true;
+					if(flag == true) 
+					{
+						bucket.append("|");
+					}
+					flag = true;
+					
+					String unq = arr[x].substring(arr[x].indexOf(" "), arr[x].length()).trim();
+					bucket.append(unq);
+					//kLogger.debug("UNQs: "+bucket.toString());				
+				}*/
+				//output.append(docs.get(arr[x]).get(0).getTokCount());	
+			}
+			
+			//build UNQs into triplet data and generate gateway call to grab ordered UNQS
+			GatewaySearch gs= new GatewaySearch();
+			String s = null;
+			
+			if(bool0 == true)
+			{
+				s =gs.getURL(bucket.toString(),"fed");
+			}
+			
+			else //gatewaySearch for empty bucket, if no doc(s) in high bucket
+				s =gs.getURL(bucketNone.toString(),"fed");
+			
+			int theQueryIndex = s.indexOf('?');
+			gatewayResult = gs.getDocument(s.substring(0, theQueryIndex), s.substring(theQueryIndex+1));
+			
+			//kLogger.debug("URL!: "+s);
+			return gatewayResult;
+		}
+		else
+			if(queryInfo.contains("docref")) {
+				return docrefs.toString();
+			}
+			else
+			return evidence.toString();
+			//return scores.toString(); //debug
+	}
+
+	//see if any of key ONEAR terms are in the docs
+	public static int onearMatch(int score, boolean scoretwo, String fileString, List<String> words, StringBuilder evidence, 
+			Map <String, Integer> evid)
+	{
+		fileString=fileString.toUpperCase();
+		
+		List<String> slist = new ArrayList<String>();
+		for(int i = 0; i < words.size(); i++) 
+		{
+			//Pattern p =null;
+			//Matcher m =null;
+			String wrd = words.get(i);
+			
+			if(wrd.contains("n3ar")) 
+			{
+				String [] str=wrd.split("n3ar");
+				Pattern p = Pattern.compile(str[0].trim().toUpperCase()+" (?:\\s*[a-zA-Z]+){1,2} "+ str[1].trim().toUpperCase());
+				Matcher m = p.matcher(fileString);
+				int count = 0;
+
+				while(m.find()) 
+				{ 
+					count ++;
+					slist.add(m.group());
+					evidence.append("\n" + m.group());
+					evid.put(m.group(), 1);
+					//add evidence to list or map
+				}	
+				if(count != 0) 
+				{
+					evidence.append("\ncount: "+count + "\n");
+				}
+			}
+			else if(wrd.contains("n1ar")) 
+			{
+				String wrd1 = wrd.replace("n1ar", "");
+				String [] str=wrd1.split("qmark1");
+				Pattern p = Pattern.compile(str[0].trim().toUpperCase()+" /w{1} "+ str[1].trim().toUpperCase());
+				Matcher m = p.matcher(fileString);
+				int count = 0;
+
+				while(m.find()) 
+				{ 
+					count ++;
+					slist.add(m.group());
+					evidence.append("\n" + m.group());
+					evid.put(m.group(), 1);
+					//add evidence to list or map
+				}	
+				if(count != 0) 
+				{
+					evidence.append("\ncount: "+count + "\n");
+				}
+			}
+		}
+		LinkedHashSet<String> lhSetNumbers = new LinkedHashSet<String>(slist);
+		for(int a =0; a < lhSetNumbers.size(); a++) 
+		{
+			if(scoretwo==true)
+			{
+				score = score + 2;
+			}
+			else 
+				score = score + 1;
+		}
+		
+		return
+				score;
+	}
+	
+	//see if any of key 'regular' terms are in the docs -> in progress
+	public static int wordMatch(int score, boolean scoretwo, String fileString, List<String> words, StringBuilder evidence, 
+			Map <String, Integer> evid)		
+	{
+		int idx = 0;
+		int lastIdx = 0;
+		
+		// normalize to upper case for matching
+		fileString=fileString.toUpperCase();
+
+		kLogger.info("doc length: " + fileString.length());
+		kLogger.info("word count: " + words.size());
+		
+		// iterate over all the words
+		for (String target : words)
+		{
+			//String target = words.get(a);
+			int count = 0;
+			int c = 0;
+			if(!StringUtils.isEmpty(fileString) && !StringUtils.isEmpty(target)) 
+			{
+				// normalize to upper case for matching
+				String targetUC = target.toUpperCase();
+				while ((idx = fileString.indexOf(targetUC, idx)) >= 0) 
+				{
+					c++;
+					count=1;
+					lastIdx = idx;
+					idx += target.length();
+					kLogger.info("idx: " + idx + ", lastIdx: " + lastIdx + ", c: " + c);
+
+				}
+				if(count==1) 
+				{
+					if(scoretwo==true) 
+					{
+						score= score + 2;
+					}
+					else
+						score= score + 1;
+				}
+			}
+			if(count != 0) 
+			{
+				evidence.append(target+ ": " + c + "\n");
+				evid.put(target, c);
+			}
+		}
+		return 
+				score;
+	}
+	
+	//break up data inside triplets into terms  
+	public static List<String> terms(String [] st) 
+	{
+		String word = null;
+		List<String> words = new ArrayList<String>();
+		for (int i= 0; i < st.length;i++) 
+		{
+			word = st[i];
+			String w = null;
+			if(word.contains("\""))
+			{
+				w = word.replace("\"", "");
+				word=null;
+				word= w;
+			}
+			words.add(word.trim());
+		   	}
+		return words;
+	}
+	public static void elmWithin(Element node, StringBuilder sb) 
+	{
+		if(node.getChildren() != null) 
+		{
+			@SuppressWarnings("unchecked") 
+			List<Element> subList = node.getChildren();
+			Iterator<Element> it = subList.iterator();
+
+			//iterate through children list			
+			while(it.hasNext()) 
+			{
+				Element e = it.next();
+				sb.append(e.getText());
+			}
+		}
+	}
+	
+	//sort array with unqs by their score
+	public static void sort(String [] arr) 
+	{
+		Integer.parseInt(arr[0].substring(0, arr[0].indexOf(" ")));
+
+		for(int i=0;i<arr.length-1;i++)
+		{
+		    for(int j=i+1;j<arr.length;j++)
+		    {
+		        if(Integer.parseInt(arr[i].substring(0, arr[i].indexOf(" ")))
+		        		< Integer.parseInt(arr[j].substring(0, arr[j].indexOf(" "))))
+		        {
+		        		String temp = arr[i];
+		        		arr[i] = arr[j];
+		        		arr[j] = temp;
+		        }
+		    }
+		}
+	}
+
+	@Override
+	public PermutedResult convert(String inData, String inFormat) throws Throwable 
+	{
+		String docInfo = null;
+		String queryInfo = null;	
+		//String gatewayOpt = null;
+
+		SAXBuilder builder1 = new SAXBuilder();
+		Document document1 = (Document) builder1.build(new StringReader(inData));
+		Element rootNode = document1.getRootElement(); 
+
+		//still getting it from the test file 
+		if(rootNode.getChildText("doc") != null) 
+		{
+			docInfo = "<docs>"+rootNode.getChildText("doc")+ "</docs>";
+		}
+		else if(rootNode.getChildText("id") != null) 
+		{
+			String c = null;
+			
+			StringBuilder sb = new StringBuilder();
+			String ID = rootNode.getChildText("id");
+			
+			//can change DocFetch to gateway call for all UNQs if speed needed
+			if (ID.contains(",")) 
+			{
+				String [] st = ID.split(",");
+				for (int i= 0; i < st.length;i++) 
+				{
+					String id = st[i].trim();
+					kLogger.debug("ID: "+id);
+					DocFetch docFetch = new DocFetch();
+					String url = docFetch.getURL(id);
+					docInfo = docFetch.getDocument(url);
+					sb.append(docInfo.substring(43, docInfo.length() - 12));
+				}
+				
+				docInfo= null;
+				docInfo = "<docs>" + sb.toString() + "</docs>";
+			}
+
+			else 
+			{
+			DocFetch docFetch = new DocFetch();
+			String url = docFetch.getURL(ID);
+			//kLogger.debug("url: " + url);
+			 
+			docInfo = docFetch.getDocument(url);
+			c= docInfo.substring(43, docInfo.length() - 12);
+			docInfo = null;
+			docInfo = "<docs>" + c + "</docs>";
+			}
+		}
+
+		queryInfo = rootNode.getChildText("query");
+		
+		@SuppressWarnings("static-access")
+		String result = this.process(docInfo, queryInfo/*, gatewayOpt*/);
+		return new PermutedResult("text/plain", result);
+	}
+}

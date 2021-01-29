@@ -1,0 +1,27 @@
+package com.newsbank.permuter.xml;
+
+import static org.junit.Assert.*;
+
+import java.io.StringReader;
+
+import org.apache.log4j.BasicConfigurator;
+import org.jdom.Document;
+import org.jdom.input.SAXBuilder;
+import org.junit.Test;
+
+public class JDOMTests
+	{
+	public void testSAX()
+		{
+		SAXBuilder theBuilder = new SAXBuilder();
+		try
+			{
+			Document theDocument = theBuilder.build(new StringReader("<hello/>"));
+			}
+		
+		catch(Throwable theErr)
+			{
+			
+			}
+		}
+	}

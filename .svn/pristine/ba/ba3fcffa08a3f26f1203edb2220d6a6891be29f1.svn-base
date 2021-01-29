@@ -1,0 +1,99 @@
+personSearch gateway pass-through option
+ 
+The personSearch gateway pass-through option is available in the PhilanPermuter service.
+ 
+The personSearch gateway pass-through option is activated by adding an additional element value to the personSearch input data structure.
+ 
+The PhilanPermuter service uses the set of triplet queries plus the additional gateway option information to build a gateway HTTP request. 
+In turn, it calls the gateway API using the HTTP request and returns a gateway result set.
+
+This service can be run as an endpoint service by using a curl command.
+
+INPUT
+	personSearch file in XML format that INCLUDES a gateway option element
+	
+OUTPUT
+	Gateway result set
+
+INTERACTION
+	This service will be called with a POST. 
+	On a POST, the content body is expected to be a personSearch form in XML. 
+	The service will process the data and output a gateway result set.
+	
+	In stage-jvm009 environment, personSearch file as input 
+		curl -d @fileName "http://127.0.0.1:8080/PhilanPermuter.txt"
+
+	Other environment running curl, such as louie, personSearch file as input 
+		curl -d @fileName "http://stage-jvm009.newsbank.com:8080/PhilanPermuter.txt"
+
+
+personSearch INPUT STRUCTURE
+<personSearch>
+<primary>
+	<nameFirst/>
+	<nameMid/>
+	<birthLast/>
+	<nameLast/>
+</primary>
+<second>
+	<nameFirst/>
+	<nameMid/>
+	<nameLast/>
+	<relationship/>
+</second>
+<second>
+	<nameFirst/>
+	<nameMid/>
+	<birthLast/>
+	<nameLast/>
+	<relationship/>
+</second>
+<terms>
+	<term/>
+	<term/>
+	<term/>
+	<term/>
+</terms>
+<scorelimit></scorelimit>
+<option></option>
+<gateway></gateway>
+</personSearch>
+
+
+REFERENCE
+	gateway element 
+		encoded example:
+			<gateway>product%3DPHILAN%26api_key%3Dphil%26cust_auth%3Dncdeditphil%7Cncdeditphil%26cust_auth_type%3Duserpw%26type%3Dtriplet</gateway>
+		decoded example:
+			<gateway><![CDATA[product=PHILAN&api_key=phil&cust_auth=ncdeditphil|ncdeditphil&cust_auth_type=userpw&type=triplet]]></gateway>
+		
+		note: The maximum number of hits is provided by user, if no max hits number provided the default is 120.
+			ex. &maxhits=120
+			
+	Scorelimit element
+		The scorelimit element tells the RankEvidence service what the score cutoff will be. If the scorelimit is 3, 
+		then all documents that have a RankEvidence score of 3 or greater will be returned. If no value, the RankEvidence 
+		algorithm will process the best cutoff score for each particular result set.
+		
+		ex.
+			<scorelimit>3</scorelimit>
+		
+	option element
+		The option element allows the flexibility to choose a desired output. If the value is 'docref', the output will be the docrefs 
+		of the result set instead of the full gateway result. If the value is 'norank', just the relevance ranked gateway request will
+		be output without going through RankEvidence. If the value is 'evidencescore', the output is a full gateway request with a <personsearch> element 
+		embedded which includes the docref, unq and score of each document without having gone through the cutoff. If the value is 'evidscore-cutoff', 
+		the output is a full gateway request with a <personsearch> element embedded which includes the docref, unq and score of each document having gone 
+		through the cutoff. If there is no option element or if the value is not 'docref' or 'norank', or 'evidencescore' the output will be a full gateway 
+		result set having gone through RankEvidence.
+		
+		ex. 
+			<option>docref</option>
+			OR
+			<option>norank</option>
+			OR
+			<option>evidencescore</option>
+			OR
+			<option>evidscore-cutoff</option>
+FAQs
+http://louie.newsbank.com/~cobrien/projects/2019person/personSearchServices.html#FAQs

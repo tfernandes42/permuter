@@ -1,0 +1,8 @@
+package com.newsbank.permuter.permutation;
+
+import com.newsbank.permuter.PermutedResult;
+
+public interface Permutation
+	{
+	public PermutedResult convert(String inData, String inFormat) throws Throwable;
+	}

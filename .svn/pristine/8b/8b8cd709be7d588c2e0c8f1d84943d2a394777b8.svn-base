@@ -1,0 +1,17 @@
+<permuter>
+    <primary>
+        <nameFirst>Jack</nameFirst>
+        <nameMid>P</nameMid>
+        <nameLast>Randall</nameLast>
+    </primary>
+    <second>
+        <nameFirst>Beverly</nameFirst>
+        <nameMid>R</nameMid>
+        <nameLast>Randall</nameLast>
+        <relationship>spouse</relationship>
+    </second>
+    <terms>
+        <term>M.D. Anderson Cancer</term>
+        <term>Cypress</term>
+    </terms>
+</permuter>

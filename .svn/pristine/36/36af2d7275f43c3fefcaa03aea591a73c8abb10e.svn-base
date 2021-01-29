@@ -1,0 +1,81 @@
+FSObitPermuter (personSearch) Service 
+
+The permuter-server service assists in the construction of a personSearch query by extracting and processing key information from a FamilySearch enhanced obit. 
+A personSearch query is constructed to find historical newspaper articles about a particular person. 
+
+The permuter-server service has two input options. 
+	1) a file that includes a full FamilySearch enhanced obit or census NBX 
+	2) a unique ID that points to a FamilySearch enhanced obit, in the following format: obit/0F91B4291DA7508A 
+	3) a unique ID that points to a FamilySearch census record, in the following format: 16F9FEB29F0912FA 
+
+The service outputs a triplet string that includes three fully formed triplets that include key information needed to conduct a personSearch. 
+The triplet string can be appended to a base gateway request to retrieve targeted results for a specific person.
+
+The permuter-server service can be run as a web service using a URL or as an endpoint service by using a curl command. 
+
+INPUT
+	FamilySearch enhanced obit file
+		OR
+	FamilySearch census file
+		OR
+	Unique ID related to a FamilySearch enhanced obit 
+		(the unique ID includes two parts: a collection and the UNQ. e.g. obit/0F91B4291DA7508A)
+		OR
+	Unique ID related to a FamilySearch census record 
+		(the unique ID includes one part: the UNQ. e.g. 16F9FEB29F0912FA)
+
+OUTPUT
+	Triplet string includes multiple fully formed triplets	
+
+INTERACTION
+	This service can be called with either GET or POST. 
+	On a POST the content body is expected to be a FamilySearch Enhanced Obit or Census record in NBX format. 
+	On a GET the document is specified by the ID parameter, e.g. obit/0F91B4291DA7508A or 16F9FEB29F0912FA. 
+	In either case the service will process the data and output a triplet string.
+
+	In stage-jvm009 environment, unique ID as input 
+		curl "http://127.0.0.1:8888/FSObitPermuter.txt?ID=obit/0F91B4291DA7508A"
+		curl "http://127.0.0.1:8888/FSObitPermuter.txt?ID=16F9FEB29F0912FA"
+
+	In stage-jvm009 environment, FamilySearch enhanced obit or census file as input 
+		curl -d @fileName "http://127.0.0.1:8888/FSObitPermuter.txt"
+
+	Other environment running curl, such as louie, unique ID as input 
+		curl "http://stage-jvm009.newsbank.com:8888/FSObitPermuter.txt?ID=obit/0F91B4291DA7508A"
+		curl "http://stage-jvm009.newsbank.com:8888/FSObitPermuter.txt?ID=16F9FEB29F0912FA"
+
+	Other environment running curl, such as louie, FamilySearch enhanced obit file as input 
+		curl -d @fileName "http://stage-jvm009.newsbank.com:8888/FSObitPermuter.txt"
+
+	Web browser, unique ID as input 
+		http://stage-jvm009.newsbank.com:8888/FSObitPermuter.txt?ID=obit/0F91B4291DA7508A
+		http://stage-jvm009.newsbank.com:8888/FSObitPermuter.txt?ID=16F9FEB29F0912FA
+
+	Append the triplet string to a base gateway request such as: 
+		http://s072.newsbank.com:9090/gateway2/platform/fedsearch6?product=GB3NEWS&api_key=gb.com&type=triplet&maxhits=30
+
+	FULL gateway request example: 
+		http://s072.newsbank.com:9090/gateway2/platform/fedsearch6?product=GB3NEWS&api_key=gb.com&type=triplet&maxhits=30&p_field_primary-0=alltext&p_params_primary-0=weight:1&p_text_primary-0=("John Housman" OR "Housman John" OR "John B Housman")&p_bool_second-1=OR&p_field_second-1=alltext&p_params_second-1=weight:1&p_text_second-1=("East Orange" OR "Linden" OR "Ewing")&p_field_second-0=alltext&p_params_second-0=weight:3&p_text_second-0=("Mary Ann Housman" OR "Mary Housman" OR "Mary A Housman")
+
+
+References: 
+
+OBIT or CENSUS FILE CAPTURE 
+
+To capture a FamilySearch enhanced obit in a file, use either 
+DocService: 
+	curl "http://s072.newsbank.com:9090/DocService/obit/v1:0F91B4291DA7508A-0F91B4291DA7508A" > obit.0F91B4291DA7508A.txt
+OR the MarkLogic article endpoint: 
+	curl -H "Content-Type: application/xml" --digest -u "nbSearch:nbsearch" "http://wma-ml154g5.newsbank.com:13010/article/0F91B4291DA7508A?process=unq" > obit.0F91B4291DA7508A.txt
+
+STARTING PERMUTER SERVICE 
+
+The permuter runtime consists of a number of Java "jar" files and a shell script. 
+Starting via the shell script takes the following form:
+	./permuter-server.sh {-l /path/to/logconfg.xml} {-p port-to-run-on} {-H doc-service-host}
+
+For stage-jvm009 VM installation, cd to the /distro directory and run the following command:
+		nohup ./permuter-server.sh -l permuter-log4j.xml -p 8888 -H "http://localhost:10007/" &
+
+FAQs
+http://louie.newsbank.com/~cobrien/projects/2019person/personSearchServices.html#FAQs

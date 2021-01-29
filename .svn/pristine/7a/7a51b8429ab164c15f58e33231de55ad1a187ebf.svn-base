@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<personSearch> 
+<primary> 
+<nameFirst><![CDATA[Audrey]]></nameFirst> 
+<nameMid><![CDATA[Morean]]></nameMid> 
+<nameLast><![CDATA[Petersen]]></nameLast> </primary> 
+<second> 
+<nameFirst><![CDATA[William ]]></nameFirst> 
+<nameMid><![CDATA[E.]]></nameMid> 
+<nameLast><![CDATA[Morean]]></nameLast> 
+<relationship>Spouse</relationship> </second> 
+<terms> 
+<term><![CDATA[Royal Oak]]></term> 
+<term><![CDATA[Naples]]></term> 
+<term><![CDATA[Jabil Circuit]]></term> 
+<term><![CDATA[Morean Arts Center]]></term> 
+<term><![CDATA[Morean Petersen Foundation Inc.]]></term> </terms> 
+<gateway><![CDATA[maxhits=-500&type=triplet&returnNavigators=0&recommenders=0&xslt=philanthropy/fedsearch&product=PHILAN&api_key=phil&auth=rkliXY-6gHl4pVX1n2Mc88W6wJU&hide_search_params=true&scorelimit=3&p_field_base-0=dti&p_params_base-0=date%3AB%2CE&p_text_base-0=after%202019-07-13T16%3A46%3A43%2B00%3A00&p_bool_base-1=and&p_field_base-1=ymd_date&p_params_base-1=date%3AB%2CE&p_text_base-1=after%202019-07-05T16%3A46%3A43%2B00%3A00]]></gateway>
+</personSearch>

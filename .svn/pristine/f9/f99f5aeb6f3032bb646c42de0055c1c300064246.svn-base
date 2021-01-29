@@ -1,0 +1,8 @@
+<rankevidence>
+<id>
+1746869C32A63F60,1746CD51A6DB5B70
+</id>
+<query><![CDATA[
+&p_field_primary-0=alltext&p_params_primary-0=weight:1&p_text_primary-0=("Charles Feeney" OR "Charles Francis Feeney" OR "Charles F Feeney" OR "C Francis Feeney" OR "Chuck Feeney")&p_bool_primary-1=OR&p_field_primary-1=alltext&p_params_primary-1=weight:0&p_text_primary-1=("Feeney Charles" OR "C F Feeney" OR "Chuck" ONEAR/3 "Feeney" OR "Feeney Chuck")&p_field_second-0=alltext&p_params_second-0=weight:1&p_text_second-0=()&p_bool_second-4=OR&p_field_second-4=alltext&p_params_second-4=weight:1&p_text_second-4=("Elizabeth" OR "San Francisco" OR "Atlantic Philanthropies" OR "Duty Free Shopper" OR "Cornell" OR "Giving Pledge")&p_bool_second-5=OR&p_field_second-5=alltext&p_params_second-5=weight:0&p_text_second-5=("Charles Feeney" OR "Charles Francis Feeney" OR "Charles F Feeney" OR "C Francis Feeney" OR "Chuck Feeney")&p_bool_second-6=OR&p_field_second-6=alltext&p_params_second-6=weight:0&p_text_second-6=("Feeney Charles" OR "C F Feeney" OR "Chuck" ONEAR/3 "Feeney" OR "Feeney Chuck")
+]]></query>
+</rankevidence>

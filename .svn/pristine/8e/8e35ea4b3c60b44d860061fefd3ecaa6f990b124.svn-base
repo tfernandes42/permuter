@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test/src"/>
+	<classpathentry kind="lib" path="libs/apache-log4j-extras-1.1.jar"/>
+	<classpathentry kind="lib" path="libs/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="libs/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="libs/fluent-hc-4.5.6.jar"/>
+	<classpathentry kind="lib" path="libs/httpclient-4.5.6.jar"/>
+	<classpathentry kind="lib" path="libs/httpclient-cache-4.5.6.jar"/>
+	<classpathentry kind="lib" path="libs/httpclient-win-4.5.6.jar"/>
+	<classpathentry kind="lib" path="libs/httpcore-4.4.10.jar"/>
+	<classpathentry kind="lib" path="libs/httpmime-4.5.6.jar"/>
+	<classpathentry kind="lib" path="libs/java-getopt-1.0.13.jar"/>
+	<classpathentry kind="lib" path="libs/jdom.jar"/>
+	<classpathentry kind="lib" path="libs/jna-4.4.0.jar"/>
+	<classpathentry kind="lib" path="libs/jna-platform-4.4.0.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="libs/simple-common.jar"/>
+	<classpathentry kind="lib" path="libs/simple-http.jar"/>
+	<classpathentry kind="lib" path="libs/simple-transport.jar"/>
+	<classpathentry kind="lib" path="libs/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="libs/commons-lang3-3.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

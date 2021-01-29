@@ -1,0 +1,597 @@
+<document id="16ECD90588EB723F" process="unq">
+<HTML>
+<meta>
+<lang-enc score="8.075" encoding="utf-8" xmlns="xdmp:encoding-language-detect">en</lang-enc>
+<lang-enc score="6.655" encoding="utf-8" xmlns="xdmp:encoding-language-detect">fr</lang-enc>
+<lang-enc score="6.609" encoding="utf-8" xmlns="xdmp:encoding-language-detect">es</lang-enc>
+<datetime-created>2018-10-19T19:08:39.813685-04:00</datetime-created></meta>
+<UNQ>16ECD90588EB723F</UNQ>
+<PBI>16DABE9A383D710A</PBI>
+<PRDI prda="Census 1940" copyright="Newsbank 2018">16DABD8CE71CF468</PRDI>
+<PAP>United States Census</PAP>
+<YMDY>1940</YMDY>
+<YMD>1940-01-01</YMD>
+<YMDM>01</YMDM>
+<YMDD>01</YMDD>
+<YRMO>194001</YRMO>
+<MODY>0101</MODY>
+<IBD>2429630</IBD>
+<resource_links>
+<resource_link type="external image" description="full-page" format="jpeg" image-type="grayscale" image-compression="">https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</resource_link></resource_links>
+<nbx:enhancements xmlns:nbx="http://www.newsbank.com/xml/nbx/1.0">
+<nbx:enhancement form="transformed" supplier="FamilySearch" type="CENSUS">
+<FamilySearch xmlns="http://www.newsbank.com/xml/FamilySearch/1.0">
+<record>
+<form>transformed</form>
+<supplier>FamilySearch</supplier>
+<type>CENSUS</type>
+<record_id>r_22158644713</record_id>
+<metadata>
+<record_identifier>https://familysearch.org/ark:/61903/1:2:9M8T-ZNZ6</record_identifier>
+<record_title>Household of Joe Thomas, "United States Census, 1940"</record_title>
+<created>2013-11-10T02:24:27.185Z</created>
+<modified>2016-07-17T02:36:13.409Z</modified></metadata>
+<EVENT_TYPE>CENSUS</EVENT_TYPE>
+<person_count>12</person_count>
+<person>
+<person_id>p_13845488489</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-TS1</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Joe</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Joe Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Married</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1889</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>51</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Head</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>9</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488490</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Minnie Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T3M</person_identifier>
+<person_PR_SEX_CODE>Female</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Minnie</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Minnie Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Married</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1894</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>46</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Wife</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>10</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488491</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Albert Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T39</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Albert</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Albert Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1917</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>23</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Son</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>11</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488492</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Brady Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T3S</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Brady</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Brady Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1919</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>21</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Son</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>12</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488493</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Joe David Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T33</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Joe David</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Joe David Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1921</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>19</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Son</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>13</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488494</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Moses Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T3Q</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Moses</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Moses Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1923</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>17</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Son</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>14</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488495</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Eddie Lee Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T37</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Eddie Lee</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Eddie Lee Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1926</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>14</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Son</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>15</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488496</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Hattie B Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T3W</person_identifier>
+<person_PR_SEX_CODE>Female</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Hattie B</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Hattie B Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1928</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>12</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Daughter</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>16</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488497</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Robert Lee Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T34</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Robert Lee</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Robert Lee Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1930</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>10</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Son</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>17</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488498</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Minnie Mae Thomas in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T3H</person_identifier>
+<person_PR_SEX_CODE>Female</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Minnie Mae</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Thomas</person_PR_NAME_SURN>
+<person_PR_NAME>Minnie Mae Thomas</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1933</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>7</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Daughter</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>18</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488499</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Leola Reiv in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T3C</person_identifier>
+<person_PR_SEX_CODE>Female</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Leola</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Reiv</person_PR_NAME_SURN>
+<person_PR_NAME>Leola Reiv</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Married</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_CITY>Same Place</person_PR_PREV_RESIDENCE_CITY>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_PREV_RESIDENCE_PLACE>Same Place</person_PR_PREV_RESIDENCE_PLACE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1914</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>26</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Daughter</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>19</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<person>
+<person_id>p_13845488500</person_id>
+<principal_id>p_13845488489</principal_id>
+<person_title>Henry Lee Reiv in household of Joe Thomas, "United States Census, 1940"</person_title>
+<person_identifier>https://familysearch.org/ark:/61903/1:1:V1P7-T3Z</person_identifier>
+<person_PR_SEX_CODE>Male</person_PR_SEX_CODE>
+<person_PR_NAME_GN>Henry Lee</person_PR_NAME_GN>
+<person_PR_NAME_SURN>Reiv</person_PR_NAME_SURN>
+<person_PR_NAME>Henry Lee Reiv</person_PR_NAME>
+<person_PR_MARITAL_STATUS>Single</person_PR_MARITAL_STATUS>
+<person_PR_PREV_RESIDENCE_DATE>1935</person_PR_PREV_RESIDENCE_DATE>
+<person_PR_BIRTH_PLACE>Alabama</person_PR_BIRTH_PLACE>
+<person_PR_BIRTH_YEAR_ESTIMATED>1940</person_PR_BIRTH_YEAR_ESTIMATED>
+<person_PR_AGE>0</person_PR_AGE>
+<person_PR_RELATIONSHIP_TO_HEAD>Grandson</person_PR_RELATIONSHIP_TO_HEAD>
+<person_PR_RACE_OR_COLOR>Negro</person_PR_RACE_OR_COLOR>
+<event_EVENT_DATE>1940</event_EVENT_DATE>
+<event_EVENT_YMD>1940-01-01</event_EVENT_YMD>
+<event_EVENT_IBD>2429630</event_EVENT_IBD>
+<event_EVENT_YEAR>1940</event_EVENT_YEAR>
+<event_EVENT_PLACE>Election Precinct 3, Macon, Alabama, United States</event_EVENT_PLACE>
+<event_EVENT_COUNTRY>United States</event_EVENT_COUNTRY>
+<event_EVENT_TOWNSHIP>Election Precinct 3</event_EVENT_TOWNSHIP>
+<event_EVENT_DISTRICT>44-9</event_EVENT_DISTRICT>
+<event_ED_DESCRIPTION>Election Precinct 3 Society Hill</event_ED_DESCRIPTION>
+<event_EVENT_STATE>Alabama</event_EVENT_STATE>
+<event_EVENT_COUNTY>Macon</event_EVENT_COUNTY>
+<field_SHEET_NBR_LTR>19A</field_SHEET_NBR_LTR>
+<field_SHEET_LTR>A</field_SHEET_LTR>
+<field_SHEET_NBR>19</field_SHEET_NBR>
+<field_FS_IMS_IMAGE_ID>005454747_00345</field_FS_IMS_IMAGE_ID>
+<field_IMAGE_ID>/005454747/005454747_00345.jpg</field_IMAGE_ID>
+<field_IMAGE_ARK>https://familysearch.org/ark:/61903/3:1:3QS7-89MT-MCX6</field_IMAGE_ARK>
+<field_HOUSEHOLD_ID>289</field_HOUSEHOLD_ID>
+<field_LANGUAGE>English</field_LANGUAGE>
+<field_LINE_NBR>20</field_LINE_NBR>
+<field_NARA_PUBLICATION_NUMBER>T627</field_NARA_PUBLICATION_NUMBER>
+<field_NARA_ROLL_NUMBER>55</field_NARA_ROLL_NUMBER>
+<field_FS_DIGITAL_FILM_NBR>005454747</field_FS_DIGITAL_FILM_NBR>
+<field_FS_IMAGE_NBR>00345</field_FS_IMAGE_NBR></person>
+<coupleRelationship>
+<coupleRelationship_person1>p_13845488489</coupleRelationship_person1>
+<coupleRelationship_person2>p_13845488490</coupleRelationship_person2></coupleRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488491</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488491</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488492</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488492</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488493</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488493</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488494</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488494</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488495</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488495</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488496</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488496</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488497</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488497</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488498</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488498</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488489</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488499</parentChildRelationship_person2></parentChildRelationship>
+<parentChildRelationship>
+<parentChildRelationship_person1>p_13845488490</parentChildRelationship_person1>
+<parentChildRelationship_person2>p_13845488499</parentChildRelationship_person2></parentChildRelationship></record></FamilySearch></nbx:enhancement></nbx:enhancements>
+<SIZE_enhancements>35711</SIZE_enhancements>
+<SIZE>522</SIZE>
+<COLLECTION>census</COLLECTION></HTML></document>

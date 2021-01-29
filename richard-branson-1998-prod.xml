@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permuter>
+  <primary>
+    <nameFirst><![CDATA[Sir Richard]]></nameFirst>
+    <nameLast><![CDATA[Branson]]></nameLast>
+  </primary>
+  <terms>
+    <term><![CDATA[Virgin Galactic]]></term>
+  </terms>
+  <option>evidencescore</option>
+  <gateway><![CDATA[maxhits=-25&type=triplet&returnNavigators=0&navigators=v4&recommenders=0&xslt=philanthropy/fedsearch&product=PHILAN&api_key%3Dphil%26cust_auth%3Dncdeditphil%7Cncdeditphil%26cust_auth_type%3Duserpw&hide_search_params=true&p_field_filter-0=ymd&p_params_filter-0=date%3AB%2CE&p_text_filter-0=1998&addNavDataToHits=true]]></gateway>
+</permuter>

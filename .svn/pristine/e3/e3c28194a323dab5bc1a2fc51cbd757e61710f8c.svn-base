@@ -1,0 +1,196 @@
+package com.newsbank.permuter.server;
+
+import java.io.OutputStream;
+
+//from http://www.simpleframework.org/doc/tutorial/tutorial.php
+
+import java.io.PrintStream;
+//import java.io.StringWriter;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.nio.charset.Charset;
+
+import org.apache.log4j.Logger;
+import org.simpleframework.http.Path;
+import org.simpleframework.http.Request;
+import org.simpleframework.http.Response;
+import org.simpleframework.http.Status;
+import org.simpleframework.http.core.Container;
+import org.simpleframework.http.core.ContainerSocketProcessor;
+
+import org.simpleframework.transport.connect.Connection;
+import org.simpleframework.transport.connect.SocketConnection;
+
+import com.newsbank.permuter.PermutedResult;
+import com.newsbank.permuter.net.DocFetch;
+import com.newsbank.permuter.net.GatewaySearch;
+import com.newsbank.permuter.permutation.Permutation;
+import com.newsbank.permuter.util.CommandLineHelper;
+
+public class SimpleHandler implements Container
+	{
+	private final static Logger kLogger =	Logger.getLogger(SimpleHandler.class);
+
+	private final static String kDefaultFormat = "txt";
+	private final static String kPermutationClassPathStub = "com.newsbank.permuter.permutation.";
+		
+	private static Connection m_connection = null;
+	//private String hostServer = null;
+	
+	//for docFetch
+	public String getHostServer() {
+		//return hostServer;
+		return DocFetch.getHostName();
+	}
+	public void setHostServer(String hostServer) {
+		//this.hostServer = hostServer;
+		DocFetch.setHostName(hostServer);
+		GatewaySearch.setHostName(hostServer);
+	}
+
+
+	@Override
+	public void handle(Request inRequest, Response inResponse)
+		{
+		
+		kLogger.info("Processing request for: " + inRequest.getPath());
+		try
+			{
+			//PrintStream theOutputBody = inResponse.getPrintStream();
+			OutputStream theOutputBody = inResponse.getOutputStream();
+			long time = System.currentTimeMillis();
+			
+			inResponse.setValue("Server", "PermutationServer/0.1 (Simple 6.01)");
+			inResponse.setDate("Date", time);
+			inResponse.setDate("Last-Modified", time);
+
+			Path thePath = inRequest.getPath();
+			String theName = thePath.getName();
+			String theFormat = thePath.getExtension();
+			
+			if (theFormat != null)
+				{
+				int theIndex = theName.indexOf("." + theFormat);
+				theName = theName.substring(0, theIndex);
+				}
+			else
+				{
+				theFormat = kDefaultFormat;
+				}
+			
+			String content=null;
+			
+			try
+				{
+
+				if (inRequest.getParameter("ID") == null ) {
+					//call the request
+					kLogger.debug("getting from post");
+					content=inRequest.getContent();
+				}
+
+				//else get ID & Host 
+				else {
+					kLogger.debug("getting from url");
+
+					String ID = inRequest.getParameter("ID");
+					String hostName = this.getHostServer();
+					
+					//do similar thing for GatewaySearch
+					DocFetch docFetch = new DocFetch();
+					String url = docFetch.getURL(ID, hostName);
+					kLogger.debug("url: " + url);
+					
+					content = docFetch.getDocument(url);
+					kLogger.debug(content);
+				}
+
+				Permutation thePermutation = (Permutation) ClassLoader.getSystemClassLoader().loadClass(kPermutationClassPathStub + theName).newInstance();
+				PermutedResult theResult = thePermutation.convert(content, theFormat);
+				inResponse.setValue("Content-Type", theResult.getContentType());
+				//theOutputBody.println(theResult.getData());
+				String theData = theResult.getData();
+				Charset ch = Charset.forName("UTF-8");
+				byte[] outputData = null;
+				if(theData!=null) {
+					outputData = theData.getBytes(ch);
+				}
+				else kLogger.debug("theDATA:'" + theData + "'");
+			
+				theOutputBody.write( outputData, 0 , outputData.length );//  println(theResult.getData());
+				}
+		
+					
+			
+			catch(Throwable theErr)
+				{
+				inResponse.setStatus(Status.INTERNAL_SERVER_ERROR);
+				PrintStream ps = new PrintStream( theOutputBody );
+				inResponse.setValue("Content-Type", "text/plain");
+				ps.println( "Class: " + theName );
+				ps.println( "Format: " + theFormat );
+				//StringWriter w = new StringWriter();
+				theErr.printStackTrace( ps );
+				kLogger.fatal("Error permuting the request: " + inRequest.getPath(), theErr);
+				}
+						
+			theOutputBody.close();
+			kLogger.info("Processing complete for: " + inRequest.getPath());
+			}
+		
+		catch(Throwable theErr)
+			{
+			kLogger.fatal("Error processing the request: " + inRequest.getPath(), theErr);
+			}
+		}
+
+	public static void startup(int inPort, String hostServer)
+		{
+		try
+			{
+			kLogger.info("Starting up SimpleHandler on port: " + inPort);
+			
+			SimpleHandler theContainer = new SimpleHandler();
+			theContainer.setHostServer(hostServer);
+
+			ContainerSocketProcessor theServer = new ContainerSocketProcessor(theContainer);
+			m_connection = new SocketConnection(theServer);
+			SocketAddress theAddress = new InetSocketAddress(inPort);
+	
+			m_connection.connect(theAddress);
+			kLogger.info("SimpleHandler Started");
+			}
+		
+		catch(Throwable theErr)
+			{
+			kLogger.fatal("Error starting up", theErr);
+			}
+		}
+
+	public static void shutdown()
+		{
+		try
+			{
+			if (m_connection != null)
+				m_connection.close();
+			kLogger.info("SimpleHandler shut down");
+			}
+		
+		catch(Throwable theErr)
+			{
+			kLogger.fatal("Error shutting down", theErr);
+			}
+		}
+	
+	public static void main(String[] inArgs)
+		throws Exception
+		{
+		CommandLineHelper.processArguments(SimpleHandler.class.getCanonicalName(), inArgs);
+		if (CommandLineHelper.isShowHelp())
+			System.out.println(CommandLineHelper.getHelp());
+		else
+			{
+			SimpleHandler.startup(CommandLineHelper.getPortNumber(), CommandLineHelper.getHost());
+			}
+		}
+	}

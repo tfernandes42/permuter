@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permuter>
+  <primary>
+    <nameFirst><![CDATA[Elizabeth]]></nameFirst>
+    <nameMid><![CDATA[Jane]]></nameMid>
+    <birthLast><![CDATA[Anderson]]></birthLast>
+    <nameLast><![CDATA[Jones]]></nameLast>
+  </primary>
+  <primary>
+    <nameFirst><![CDATA[Betty]]></nameFirst>
+    <birthLast><![CDATA[Anderson]]></birthLast>
+    <nameLast><![CDATA[Jones]]></nameLast>
+  </primary>
+  <primary>
+    <nameFirst><![CDATA[Elizabeth]]></nameFirst>
+    <nameMid><![CDATA[Jane]]></nameMid>
+    <birthLast><![CDATA[Anderson]]></birthLast>
+    <nameLast><![CDATA[Harris]]></nameLast>
+  </primary>
+  <primary>
+    <nameFirst><![CDATA[Betty]]></nameFirst>
+    <birthLast><![CDATA[Anderson]]></birthLast>
+    <nameLast><![CDATA[Harris]]></nameLast>
+  </primary>
+  <second>
+    <nameFirst><![CDATA[David]]></nameFirst>
+    <birthLast><![CDATA[Moore]]></birthLast>
+    <nameLast><![CDATA[Jones]]></nameLast>
+    <relationship>Husband</relationship>
+  </second>
+  <second>
+    <nameFirst><![CDATA[Davy]]></nameFirst>
+    <birthLast><![CDATA[Moore]]></birthLast>
+    <nameLast><![CDATA[Jones]]></nameLast>
+    <relationship>Husbandz</relationship>
+  </second>
+  <second>
+    <nameVar><![CDATA[Davy Jones]]></nameVar>
+    <relationship>Husband</relationship>
+  </second>
+  <second>
+    <nameFirst><![CDATA[Amy]]></nameFirst>
+    <birthLast><![CDATA[Harris]]></birthLast>
+    <nameLast><![CDATA[Anderson]]></nameLast>
+    <relationship>Mother</relationship>
+  </second>
+</permuter>

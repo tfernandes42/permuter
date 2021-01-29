@@ -1,0 +1,166 @@
+package com.newsbank.permuter.util;
+
+import gnu.getopt.Getopt;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+
+
+public class CommandLineHelper
+	{
+	private final static Logger kLogger =	Logger.getLogger(CommandLineHelper.class);
+	
+	private final static String kHelpString = "-p {port-number} - port number to use\n"
+			+ "-H {host} - protocol, hostname and port, e.g. http://localhost:8080\n"
+			+ "-l {log4j-config} -  path to log4j config file\n"
+			+ "-h - print help.. all other options are ignored and program terminates";
+	
+	private final static int kDefaultPortNumber	=	8080;
+	/* 
+	 * -p port number, defaults to 8080
+	 * 
+	 * -l log4j-config path to log4j config file
+	 * -h help.. all other options are ignored and program terminates
+	 */
+	private static String			kDefaultOptions		= "hl:p:H:";
+	private static int				s_portNumber			= kDefaultPortNumber;
+	private static String			s_argument			= null;
+	private static String			s_host				= "http://xvm-10-249.newsbank.com:9090/";
+	private static String			s_log4JConf			= null;
+	private static boolean			s_showHelp			= false;
+	
+	public static void processArguments(String inProcessName, String inArgs[])
+		{
+		CommandLineHelper.processArguments(inProcessName, inArgs, kDefaultOptions);
+		}
+
+	public static void processArguments(String inProcessName, String inArgs[], String inOptions)
+		{
+		Getopt theOpts = new Getopt(inProcessName, inArgs, inOptions);
+
+		int theOption;
+		while ((theOption = theOpts.getopt()) != -1)
+			{
+			switch (theOption)
+				{
+				case 'l':
+					setLog4JConf(theOpts.getOptarg());
+					break;
+				
+				case 'p':
+					setPortNumber(theOpts.getOptarg());
+					break;
+					
+				case 'H':
+					setHost(theOpts.getOptarg());
+					break;
+					
+				case 'h':
+					setShowHelp(true);
+					break;
+				}
+			}
+		
+		int theOptIndex=theOpts.getOptind();
+		if (theOptIndex > 0 && (inArgs.length > 0 && inArgs.length > theOptIndex))
+			{
+			setArgument(inArgs[theOpts.getOptind()]);
+			}
+
+		if (s_log4JConf != null)
+			{
+			DOMConfigurator.configure(s_log4JConf);
+			kLogger.info("Log4J Configured from: " + s_log4JConf);
+			}
+		else
+			{
+			BasicConfigurator.configure();
+			}
+		}
+
+
+	/**
+	 * @return the log4JConf
+	 */
+	public static String getLog4JConf()
+		{
+		return s_log4JConf;
+		}
+
+	/**
+	 * @param inLog4jConf
+	 *            the log4JConf to set
+	 */
+	public static void setLog4JConf(String inLog4jConf)
+		{
+		s_log4JConf = inLog4jConf;
+		}
+
+	/**
+
+	/**
+	 * @return the argument
+	 */
+	public static String getArgument()
+		{
+		return s_argument;
+		}
+
+	/**
+	 * @param inArgument
+	 *            the argument to set
+	 */
+	public static void setArgument(String inArgument)
+		{
+		s_argument = inArgument;
+		}
+
+	public static int getPortNumber()
+		{
+		return s_portNumber;
+		}
+
+	public static void setPortNumber(int inPortNumber)
+		{
+		s_portNumber = inPortNumber;
+		}
+
+	public static void setPortNumber(String inPortNumber)
+		{
+		try
+			{
+			CommandLineHelper.setPortNumber(Integer.parseInt(inPortNumber));
+			}
+		
+		catch(Throwable theErr)
+			{
+			theErr.printStackTrace(System.err);
+			}
+		}
+	
+	public static boolean isShowHelp()
+		{
+		return s_showHelp;
+		}
+
+	public static void setShowHelp(boolean inShowHelp)
+		{
+		s_showHelp = inShowHelp;
+		}
+	
+	public static String getHelp()
+		{
+		return kHelpString;
+		}
+
+	public static String getHost()
+		{
+		return s_host;
+		}
+
+	public static void setHost(String inHost)
+		{
+		s_host = inHost;
+		}
+	}

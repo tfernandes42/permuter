@@ -1,0 +1,107 @@
+package com.newsbank.permuter.net;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+
+public class GatewaySearch {
+	private static String hostName;
+	
+	public static String getHostName() 
+	{
+		return hostName;
+	}
+
+	public static void setHostName(String hostName) 
+	{
+		GatewaySearch.hostName = hostName;
+	}
+	
+	//no host required (use default host)
+	public String getURL(String info, String searchType) 
+	{
+		return getURL(info,searchType, getHostName());
+	}
+	
+	public String getURL (String info, String searchType, String host) 
+	{
+		//make sure host starts with http://
+		if(!host.startsWith("http://")) 
+		{
+			host = "http://" + host;
+		}
+		
+		if(!host.contains(":")) 
+		{
+			System.err.println("No port #");
+		}
+		
+		//http://s072.newsbank.com:9090
+		String [] stringArr = host.split(":");
+		String part1 = stringArr[0];
+		String part2 = stringArr[1];
+		if(part2.contains("//")) {
+			String p = part2.replace("//", "");
+			part2 = null;
+			part2=p;
+		}		
+		
+		int part3 = Integer.parseInt(stringArr[2].replace("/", ""));
+		//int part3 = Integer.parseInt(stringArr[2]);
+
+		String theUrl=null;
+		URI theURI  = null;
+		try 
+		{
+			if(searchType.contains("fed")) {
+				theURI = new URI(part1, null, part2, part3, "/gateway2/platform/fedsearch6", URLDecoder.decode(info,"UTF-8"), null);
+				//URI theURI = new URI("http", null,"s072.newsbank.com", 9090, "/gateway2/platform/fedsearch6", info, null);
+			}
+			else if(searchType.contains("unq")) {
+				theURI = new URI(part1, null, part2, part3, "/gateway2/directsearch/MultiDocRequest", URLDecoder.decode(info,"UTF-8"), null);
+			}
+			else if(searchType.contains("doc")) {
+				theURI = new URI(part1, null, part2, part3, "/gateway2/directsearch/DocumentSearch", URLDecoder.decode(info,"UTF-8"), null);
+			}
+			theUrl=theURI.toASCIIString();
+			System.out.println(theUrl);
+		} 
+		catch (URISyntaxException i) 
+		{
+			i.printStackTrace();
+		} 
+		catch ( UnsupportedEncodingException e) 
+		{
+			e.printStackTrace();
+		} 
+		
+		return theUrl;
+	}
+	
+	public String getDocument(String URL) 
+	{
+		String theData = null;
+		
+		try 
+		{
+			 theData = HttpRequest.doGetRequest(URL);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return theData; 
+	}
+	
+	public String getDocument(String URL, String inBody)
+		{
+		String theData = null;
+		
+		try 
+		{
+			 theData = HttpRequest.doPostRequest(URL, inBody);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return theData; 
+		}
+	}

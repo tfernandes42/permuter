@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<personSearch> 
+<primary> 
+<nameFirst><![CDATA[Francis]]></nameFirst> 
+<nameMid><![CDATA[Evelyn]]></nameMid> 
+<nameLast><![CDATA[Baker]]></nameLast>
+</primary> 
+<second> 
+<nameFirst><![CDATA[Derrick]]></nameFirst> 
+<nameMid><![CDATA[Julian]]></nameMid> 
+<nameLast><![CDATA[Baker]]></nameLast> 
+<relationship>Spouse</relationship>
+</second> 
+<terms> 
+<term><![CDATA[El Paso]]></term>
+</terms> 
+<gateway>
+<![CDATA[type=triplet&returnNavigators=0&recommenders=0&xslt=philanthropy/fedsearch&product=PHILAN&auth=4Fgm9eqoHOL3OqV2qXXTQJ3baJU&hide_search_params=true&p_field_base-0=dti&p_params_base-0=date%3AB%2CE&p_text_base-0=after%202019-06-25T14%3A16%3A01-04%3A00&p_bool_base-1=and&p_field_base-1=ymd_date&p_params_base-1=date%3AB%2CE&p_text_base-1=after%202019-06-17T14%3A16%3A01-04%3A00&api_key=phil]]></gateway>
+</personSearch>

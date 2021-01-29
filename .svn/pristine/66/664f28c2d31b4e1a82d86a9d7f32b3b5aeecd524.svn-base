@@ -1,0 +1,415 @@
+package com.newsbank.permuter.permutation;
+
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+//import org.apache.log4j.Logger;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import com.newsbank.permuter.PermutedResult;
+import com.newsbank.permuter.net.DocFetch;
+import com.newsbank.permuter.types.Config;
+import com.newsbank.permuter.types.DocStore;
+
+public class RankEvidence implements Permutation {
+	
+	//private final static Logger kLogger = Logger.getLogger(FSObitPermuter.class);
+	
+	public static String process(String docInfo, String queryInfo)
+	{
+		StringBuilder evidence= new StringBuilder();
+		
+		Map <String, List<DocStore>> docs = new HashMap<String, List<DocStore>>();
+		Map <String, Integer> evid = new HashMap<String, Integer>();
+		List <DocStore> docAtt = new ArrayList<DocStore>();
+		DocStore theDocs = new DocStore();
+
+		SAXBuilder builder = new SAXBuilder();
+		StringBuilder sb = new StringBuilder();
+		StringBuilder output = new StringBuilder();
+		String unqVal = null;
+		String UNQ = null;
+		int score = 0;
+
+		Config conf = new Config();
+		String fulltext = conf.getFulltext();
+		String citation = conf.getCitation();
+		String alltext = conf.getAlltext();
+
+		//remove any line feeds in queryInfo
+		String queryInfo1=queryInfo.trim();
+		queryInfo=null;
+		queryInfo=queryInfo1;
+
+		int q1 = queryInfo.indexOf("primary-0=");
+		int q2 = queryInfo.substring(1).indexOf("&p_p");
+		String option = queryInfo.substring(q1 + 10, q2 + 1);
+
+		evidence.append(queryInfo + "\n");
+
+		String [] ft = fulltext.split(" ");
+		String [] cit = citation.split(" ");
+		String [] at = alltext.split(" ");
+
+		try
+		{
+			Document document = (Document) builder.build(new StringReader(docInfo));
+
+			//root element (personSearch)
+			Element rootNode = document.getRootElement();
+			
+			@SuppressWarnings("unchecked")
+			List<Element> nbx = rootNode.getChildren("NBX");
+			Iterator<Element> it = nbx.iterator();
+
+			//grab everything that's inside of the corresponding elements; FULLTEXT/CITATION/ALLTEXT 
+			while(it.hasNext()) {
+				sb = new StringBuilder();
+				Element nbxNode = it.next();
+				
+				String unq = nbxNode.getChildText("UNQ");
+				
+				if(option != null && option.toUpperCase().equals("FULLTEXT")) {
+					for(int i = 0; i < ft.length; i++) {
+						Element node = nbxNode.getChild(ft[i]);
+	
+						if(node != null) {
+							sb.append(nbxNode.getChildText(ft[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+				else if(option != null && option.toUpperCase().equals("CITATION")) {
+					for(int i = 0; i < cit.length; i++) {
+						Element node = nbxNode.getChild(cit[i]);
+						if(node != null) {
+							sb.append(nbxNode.getChildText(cit[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+				else if(option == null || option.toUpperCase().equals("ALLTEXT")) {
+					for(int i = 0; i < at.length; i++) {
+						Element node = nbxNode.getChild(at[i]);
+						if(node != null) {
+							sb.append(nbxNode.getChildText(at[i]) + " ");
+							elmWithin(node, sb);
+						}
+					}
+				}
+				else {
+					for(int i = 0; i < at.length; i++) {
+						Element node = nbxNode.getChild(at[i]);
+						if(node != null) {
+							sb.append(nbxNode.getChildText(at[i]) + " ");
+							elmWithin(node,sb);
+						}
+					}
+				}
+			
+				String fileString = null;
+				//take out all punctuation and tokenize
+				fileString = sb.toString().replaceAll("[^\\p{L} ]", " ").toString();
+				while (fileString.contains("  ")) {
+					fileString = fileString.replace("  ", " ");
+				}
+				
+				//System.out.println("fileString: "+fileString);
+				//kLogger.debug(fileString);
+	
+				String word = null;
+				String target = null;
+				List<String> words = new ArrayList<String>();
+				String word2 = null;
+				String target2 = null;
+				List<String> words2 = new ArrayList<String>();
+				String word3 = null;
+				String target3 = null;
+				List<String> words3 = new ArrayList<String>();
+				String word4 = null;
+				List<String> words4 = new ArrayList<String>();
+	
+				//grab what's inside of each triplet 
+				String prim0 = queryInfo.substring(queryInfo.indexOf("primary-0=(") +11, queryInfo.indexOf(")"));
+				String prim2 = queryInfo.substring(queryInfo.indexOf("primary-2=(") +11, queryInfo.indexOf(")", queryInfo.indexOf("primary-2=(")));
+				if (prim2.contains("ONEAR/2")) {
+					String p2 = prim2.replace("ONEAR/2", "n3ar");
+					prim2 = null;
+					prim2 = p2;
+				}
+				
+				String sec0 = queryInfo.substring(queryInfo.indexOf("second-0=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-0=(")));
+				String sec2 = queryInfo.substring(queryInfo.indexOf("second-2=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-2=(")));
+				if (sec2.contains("ONEAR/2")) {
+					String s2 = sec2.replace("ONEAR/2", "n3ar");
+					sec2 = null;
+					sec2 = s2;
+				}
+				String sec4 = queryInfo.substring(queryInfo.indexOf("second-4=(") +10, queryInfo.indexOf(")", queryInfo.indexOf("second-4=(")));
+				
+				//break up data inside triplets into terms  
+				StringTokenizer st1 = new StringTokenizer(prim0.replace("\"", ""), "OR");
+				while(st1.hasMoreTokens()) {
+					word = st1.nextToken();
+					words.add(word.trim());
+		    	   	}
+				StringTokenizer st2 = new StringTokenizer(sec0.replace("\"", ""), "OR");
+				while(st2.hasMoreTokens()) {
+					word2 = st2.nextToken();
+					words2.add(word2.trim());
+		    	   	}
+				StringTokenizer st3 = new StringTokenizer(sec4.replace("\"", ""), "OR");
+				while(st3.hasMoreTokens()) {
+					word3 = st3.nextToken();
+					words3.add(word3.trim());
+		    	   	}
+				StringTokenizer st4 = new StringTokenizer(prim2.replace("\"", "")+ "OR" +sec2.replace("\"", ""), "OR");
+				while(st4.hasMoreTokens()) {
+					word4 = st4.nextToken();
+					words4.add(word4.trim());
+		    	   	}
+				//System.out.println("word: "+words.get(0)+" | "+words.get(1)+" | "+words.get(2)+" | "+words.get(3)+" | "+words.get(4));
+				
+				//count how many occurrence of each phrase there is in the document 
+				theDocs.setQuery(queryInfo);
+				evidence.append("\nUNQ) "+unq + "\n");
+				theDocs.setUnq(unq);
+				UNQ = unq;
+				evidence.append("Token count) "+fileString.length() + "\n");
+				theDocs.setTokCount(fileString.length());
+				evidence.append("Evidence) \n");
+				score = 0;
+				
+				//for prim-2 & sec-2
+				List<String> slist = new ArrayList<String>();
+				for(int i = 0; i < words4.size(); i++) {
+					Pattern p =null;
+					Matcher m =null;
+					String wrd = words4.get(i);
+					
+					if(wrd.contains("n3ar")) {
+						String [] str=wrd.split("n3ar");
+						p = Pattern.compile(str[0].trim().toUpperCase()+" (?:\\s*[a-zA-Z]+){1,2} "+ str[1].trim().toUpperCase());
+						m = p.matcher(fileString.toUpperCase());
+						int count = 0;
+
+						while(m.find()) {
+							count ++;
+							slist.add(m.group());
+							evidence.append("\n" + m.group());
+							evid.put(m.group(), 1);
+							//add evidence to list or map
+						}	
+						if(count != 0) {
+							evidence.append("\ncount: "+count + "\n");
+						}
+					}
+				}
+				LinkedHashSet<String> lhSetNumbers = new LinkedHashSet<String>(slist);
+				for(int a =0; a < lhSetNumbers.size(); a++) {
+					score ++;
+					}
+				
+				//for prim-0
+				int idx = 0;
+				for (int a = 0; a < words.size(); a ++) {
+					target = words.get(a);
+					int count = 0;
+					int c = 0;
+					if(fileString != null && target != null) {
+						while ((idx = fileString.toUpperCase().indexOf(target.toUpperCase(), idx)) != -1) {
+							c++;
+							count=1;
+							idx += target.length();
+						}
+						if(count==1) {
+							score= score + 2;
+						}
+					}
+					if(count != 0) {
+						evidence.append(target+ ": " + c + "\n");
+						evid.put(target, c);
+					}
+				}
+				//for sec-0
+				int idx2 = 0;
+				for (int a = 0; a < words2.size(); a ++) {
+					target2 = words2.get(a);
+					int count = 0;
+					int c = 0;
+					if(fileString != null && target2 != null) {
+						while ((idx2 = fileString.toUpperCase().indexOf(target2.toUpperCase(), idx2)) != -1) {
+							c++;
+							count=1;
+							idx2 += target2.length();
+						}
+						if(count==1) {
+							score= score + 1;
+						}
+					}
+					if(count != 0) {
+						evidence.append(target2+ ": " + c + "\n");
+						evid.put(target2, c);
+					}
+				}
+				//for sec-4
+				int idx3 = 0;
+				for (int a = 0; a < words3.size(); a ++) {
+					target3 = words3.get(a);
+					int count = 0;
+					int c = 0;
+					if(fileString != null && target3 != null) {
+						while ((idx3 = fileString.toUpperCase().indexOf(target3.toUpperCase(), idx3)) != -1) {
+							c++;
+							count=1;
+							idx3 += target3.length();
+						}
+						if(count==1) {
+							score= score + 1;
+						}
+					}
+					if(count != 0) {
+						evidence.append(target3+ ": " + c + "\n");
+						evid.put(target3, c);
+					}
+				}
+				theDocs.setScore(score);
+				//adding all documents (w their attributes) to DocStore list
+				docAtt.add(theDocs);
+				evidence.append("\nscore) "+score+ "\n"
+						+ "____________________________\n");
+				
+				//adding all key information to documents map
+				docs.put(score + " " + UNQ, docAtt);
+			}
+		}
+		catch (Throwable io) {
+			io.printStackTrace(System.err);
+			} 
+		
+		Set<String> set = docs.keySet();
+		Iterator<String> setIt = set.iterator();
+		StringBuilder key = new StringBuilder();
+		
+		while(setIt.hasNext()) {
+			unqVal= setIt.next();
+			key.append(unqVal+",");
+		}
+		String [] arr = key.toString().split(",");
+		
+		//this is the sorted list of docs by score (+ unq)
+		sort(arr);
+		
+		//cut off first 300 if result set is larger
+		if(arr.length > 300) {
+			String[] tempArr = Arrays.copyOfRange(arr, 0, 300);
+			arr = null;
+			arr = tempArr;
+		}
+		
+		for(int x = 0; x < arr.length;x++) {
+			output.append(arr[x]+" \n");
+			//cut off algorithm
+		}
+		//output.append(docs.get(arr[0]).get(0).getTokCount());
+		return evidence.toString();
+	}
+
+	public static void elmWithin(Element node, StringBuilder sb) {
+
+		if(node.getChildren() != null) {
+			@SuppressWarnings("unchecked") 
+			List<Element> subList = node.getChildren();
+			Iterator<Element> it = subList.iterator();
+
+			//iterate through children list			
+			while(it.hasNext()) {
+				Element e = it.next();
+				sb.append(e.getText());
+			}
+		}
+	}
+	
+	public static void sort(String [] arr) {
+		Integer.parseInt(arr[0].substring(0, arr[0].indexOf(" ")));
+
+		for(int i=0;i<arr.length-1;i++)
+		{
+		    for(int j=i+1;j<arr.length;j++)
+		    {
+		        if(Integer.parseInt(arr[i].substring(0, arr[i].indexOf(" ")))
+		        		< Integer.parseInt(arr[j].substring(0, arr[j].indexOf(" "))))
+		        {
+		        		String temp = arr[i];
+		        		arr[i] = arr[j];
+		        		arr[j] = temp;
+		        }
+		    }
+		}
+	}
+
+	@Override
+	public PermutedResult convert(String inData, String inFormat) throws Throwable {
+		String docInfo = null;
+		String queryInfo = null;		
+
+		SAXBuilder builder1 = new SAXBuilder();
+		Document document1 = (Document) builder1.build(new StringReader(inData));
+		Element rootNode = document1.getRootElement(); 
+
+		//still getting it from the test file 
+		if(rootNode.getChildText("doc") != null) {
+			docInfo = "<docs>"+rootNode.getChildText("doc")+ "</docs>";
+		}
+		else if(rootNode.getChildText("id") != null) {
+			String c = null;
+			
+			StringBuilder sb = new StringBuilder();
+			String ID = rootNode.getChildText("id");
+			
+			if (ID.contains(",")) {
+				StringTokenizer st1 = new StringTokenizer(ID, ", ");
+				while(st1.hasMoreTokens()) {
+					String id = st1.nextToken();
+					DocFetch docFetch = new DocFetch();
+					String url = docFetch.getURL(id);
+					docInfo = docFetch.getDocument(url);
+					sb.append(docInfo.substring(43, docInfo.length() - 12));
+		    	   	}
+				docInfo= null;
+				docInfo = "<docs>" + sb.toString() + "</docs>";
+			}
+
+			else {
+			
+			DocFetch docFetch = new DocFetch();
+			String url = docFetch.getURL(ID);
+			//kLogger.debug("url: " + url);
+			 
+			docInfo = docFetch.getDocument(url);
+			c= docInfo.substring(43, docInfo.length() - 12);
+			docInfo = null;
+			docInfo = "<docs>" + c + "</docs>";
+			}
+		}
+		
+		queryInfo = rootNode.getChildText("query");
+		
+		@SuppressWarnings("static-access")
+		String result = this.process(docInfo, queryInfo);
+		return new PermutedResult("text/plain", result);
+	}
+}

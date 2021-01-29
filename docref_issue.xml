@@ -1,0 +1,25 @@
+<permuter>
+  <primary>
+    <nameFirst><![CDATA[Bill]]></nameFirst>
+    <nameLast><![CDATA[Gates]]></nameLast>
+  </primary>
+  <second>
+    <nameFirst><![CDATA[Melinda]]></nameFirst>
+    <nameLast><![CDATA[Gates]]></nameLast>
+    <relationship>Spouse</relationship>
+  </second>
+  <terms>
+    <term><![CDATA[Seattle]]></term>
+    <term><![CDATA[Harvard College]]></term>
+    <term><![CDATA[Cascade Investment]]></term>
+    <term><![CDATA[Bill & Melinda Gates Foundation]]></term>
+    <term><![CDATA[National Academy of Engineering]]></term>
+    <term><![CDATA[bgC3]]></term>
+    <term><![CDATA[Microsoft]]></term>
+    <term><![CDATA[Branded Entertainment Network]]></term>
+    <term><![CDATA[TerraPower]]></term>
+    <term><![CDATA[Giving Pledge]]></term>
+  </terms>
+  <!--<option>evidencescore</option>
+  <gateway><![CDATA[maxhits=-25&type=triplet&returnNavigators=1&navigators=v4&recommenders=0&xslt=philanthropy/fedsearch&product=PHILAN&api_key=phil&cust_auth=ncdeditphil|ncdeditphil&cust_auth_type=userpw&hide_search_params=true&cullNavigators=year&navoutput=year%3Afull%3Alabel%3Ad&exclude_docrefs=news/16E170ADFA75ED58%3A%7C%3Anews/16DEFAEAB50ECB50%3A%7C%3Anews/1552A84E5DED3D58%3A%7C%3Anews/16DF0505E72CEE40%3A%7C%3Anews/11283E172D77B1B8%3A%7C%3Anews/1628C5347AA8D880%3A%7C%3Anews/1628B69C703147C0%3A%7C%3Anews/1552DA8D377795C0%3A%7C%3Anews/14AC1A756CAA1500%3A%7C%3Anews/16E170C02B349BA0%3A%7C%3Anews/16E1777F2438A0F8%3A%7C%3Anews/16E16BDE51FBBE98%3A%7C%3Anews/16E179D7069DCD48%3A%7C%3Anews/16E17787775ADE30%3A%7C%3Anews/13C8488CB61C7E48%3A%7C%3Anews/1718B636D1435F60%3A%7C%3Anews/1718B352078D8478%3A%7C%3Anews/1718B6356FB257A8%3A%7C%3Anews/1718B6370502C6A0%3A%7C%3Anews/1628C534B221FC00%3A%7C%3Anews/1628C53508479160%3A%7C%3Anews/16A0B520A117D510%3A%7C%3Anews/16A0B8FF28A41938%3A%7C%3Anews/16A0B77F2E5B91A8&p_bool_exclude-0=NOT&p_field_exclude-0=alltext&p_text_exclude-0=coronavirus%20OR%20covid%20OR%20covid19%20OR%20%22covid-19%22&p_bool_exclude-1=NOT&p_field_exclude-1=alltext&p_text_exclude-1=israel&p_bool_exclude-2=NOT&p_field_exclude-2=alltext&p_text_exclude-2=%22press%20release%22]]></gateway>-->
+</permuter>

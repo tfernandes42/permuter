@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     August 8, 2018                                                     
+
+     Permuter
+                   
+     maxsom@newsbank.com, tfernandes@newsbank.com                                                                
+     ====================================================================== -->
+<project name="Permuter" default="compile" basedir=".">
+	<description>
+    	Build file for Permuter system
+	</description>
+
+	<property name="root.bundle" value="permuter"/>
+	<property name="root.src" value="src"/>
+	<property name="root.libs" value="libs"/>
+	<property name="root.classes" value="compiled-classes"/>
+	<property name="root.jar" value="jar"/>
+	<property name="root.distro" value="distro"/>
+	<property name="root.resources" value="resources"/>
+	
+	<property name="root.ftp.servername" value="stage-jvm009.newsbank.com"/>
+	<property name="root.ftp.username" value="prog"/>
+	<property name="root.ftp.password" value="retrev4u"/>
+	<property name="root.ftp.remotedir" value="distro"/>
+
+	<path id="root.classpath">
+		<!-- our libs -->
+		<fileset dir="${root.libs}">
+			<include name="**/*.jar"/>
+		</fileset>
+		
+		<!-- our classes -->
+		<pathelement path="${root.classes}"/>
+	</path>
+
+	<target name="clean">
+		<!-- start w/clean directory -->
+		<delete dir="${root.bundle}"/>
+	</target>
+
+	<target name="compile" depends="clean">		
+		<mkdir dir="${root.bundle}/${root.classes}"/>
+		
+		<!-- compile the source excluding test tree -->
+	    <javac srcdir="${root.src}"
+ 		        excludes="test/**"            
+	    		destdir="${root.bundle}/${root.classes}"
+	           	debug="off"
+	           	deprecation="no"
+	           	optimize="off"
+				source="1.6"
+           		compiler="javac1.6"
+	    		includeantruntime="false">
+	        <classpath refid="root.classpath"/>
+	    </javac>
+	</target>
+	
+	<target name="jar" depends="compile">		
+		<jar destfile="${root.bundle}/${root.jar}/${root.bundle}.jar" basedir="${root.bundle}/${root.classes}"/>
+	</target>
+	
+	<target name="distro" depends="compile,jar">
+		<mkdir dir="${root.bundle}/${root.distro}"/>
+		
+		<copy todir="${root.bundle}/${root.distro}/libs">
+			<fileset dir="${root.libs}"/>
+		</copy>
+		
+		<copy todir="${root.bundle}/${root.distro}/libs">
+			<fileset dir="${root.bundle}/${root.jar}"/>
+		</copy>
+
+		<copy todir="${root.bundle}/${root.distro}">
+			<fileset dir="${root.resources}"/>
+		</copy>
+		
+		<copy todir="${root.bundle}/${root.distro}" file="Documentation.txt"/>
+		<copy todir="${root.bundle}/${root.distro}" file="FormPermuterDocumentation.txt"/>
+
+		<!-- on a unix style system, set the exec bit -->
+		<chmod file="${root.bundle}/${root.distro}/permuter-server.sh" perm="a+x"/>
+
+	</target>
+
+    <target name="sftp-distro" depends="distro" description="Copy distro folder to target machine">
+    	<scp todir="${root.ftp.username}:${root.ftp.password}@${root.ftp.servername}:/home/prog/${root.ftp.remotedir}">
+    	  <fileset dir="${root.bundle}/${root.distro}"/>
+    	</scp>
+    </target>
+
+</project>

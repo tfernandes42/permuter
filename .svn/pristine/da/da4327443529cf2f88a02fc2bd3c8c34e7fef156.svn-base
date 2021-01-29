@@ -1,0 +1,17 @@
+<permuter>
+<primary>
+	<org>Dartmouth Hitchcock</org>
+</primary>
+<primary>
+	<org>Mary Hitchcock</org>
+</primary>
+  <primary>
+    <nameFirst>Kenneth</nameFirst>
+    <nameMid>Edward</nameMid>
+    <nameLast>Dufort</nameLast>
+  </primary>
+  <primary>
+    <nameFirst>Ken</nameFirst>
+    <nameLast>Dufort</nameLast>
+  </primary>
+</permuter>

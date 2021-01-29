@@ -1,0 +1,38 @@
+package com.newsbank.permuter.server;
+
+import static org.junit.Assert.*;
+
+import java.awt.Desktop;
+import java.net.URI;
+
+//import org.apache.log4j.BasicConfigurator;
+import org.junit.Test;
+
+public class SimpleHandlerTest
+	{
+
+//	@Test
+//	public void testStartup()
+//		{
+//		BasicConfigurator.configure();
+//
+//		com.newsbank.permuter.server.SimpleHandler.startup(8888, "http://s072.newsbank.com:9090/");
+//
+//		try
+//			{
+//			Desktop.getDesktop().browse(new URI("http://localhost:8888/HelloWorld.txt"));
+//			do
+//				{
+//
+//				}
+//			while (true);
+//
+//			}
+//
+//		catch(Throwable theErr)
+//			{
+//			theErr.printStackTrace();
+//			}
+//		}
+
+	}
