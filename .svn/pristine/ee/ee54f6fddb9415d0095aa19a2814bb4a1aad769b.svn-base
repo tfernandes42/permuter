@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        	<RollingFile name="permuterlog" bufferedIO="true" fileName="logs/permuter.log" append="true" filePattern="logs/permuter.log.%d{yyyy-MM-dd}">
+         <PatternLayout pattern="[%d{ISO8601}]  %-5p [%t] %C{2} - %m\n" />
+         <Policies>
+                 <TimeBasedTriggeringPolicy interval="1" />
+         </Policies>
+	</RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug" includeLocation="true">
+            <AppenderRef ref="Console"/>
+        </Root> 
+		<Logger name="httpclient.wire" level="error">
+                <AppenderRef ref="Console"/>
+       </Logger>
+		<Logger name="org.apache.http" level="error">
+                <AppenderRef ref="Console"/>
+       </Logger>	   
+    </Loggers>
+</Configuration>

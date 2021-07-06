@@ -1,0 +1,10 @@
+<permuter>
+  <primary>
+    <org><![CDATA[Bill and Melinda Gates Foundation]]></org>
+  </primary>
+  <permutations>high</permutations>
+  <!--<secondEvid>required</secondEvid>-->
+  <previewTerms>primary</previewTerms>
+  <option>evidencescore</option>
+  <!--<gateway><![CDATA[maxhits=-25&type=triplet&returnNavigators=1&navigators=v4&recommenders=0&xslt=philanthropy/fedsearch&product=PHILAN&api_key=phil&auth=jI0tOR2S-rRrMH5yyL1LvLA8Yvs&hide_search_params=true&cullNavigators=year&navoutput=year%3Afull%3Alabel%3Ad&addNavDataToHits=true&highlightTermsMatchLimit=4&highlightCharacterPadding=80]]></gateway>-->
+</permuter>

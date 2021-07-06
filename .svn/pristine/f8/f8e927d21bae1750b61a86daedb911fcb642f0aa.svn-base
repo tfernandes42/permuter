@@ -1,0 +1,19 @@
+<permuter>
+<primary>
+	<nameFirst><![CDATA[Joseph]]></nameFirst>
+	<nameMid><![CDATA[W]]></nameMid>
+	<nameLast><![CDATA[Abrams]]></nameLast>
+</primary>
+<second>
+	<nameFirst><![CDATA[Patricia]]></nameFirst>
+	<nameMid></nameMid>
+	<nameLast><![CDATA[Abrams]]></nameLast>
+	<relationship><![CDATA[husband]]></relationship>
+</second>
+<terms>
+	<term><![CDATA[Kentfield]]></term>
+</terms>
+<!--<option>evidencescore</option>
+<scorelimit>3</scorelimit>-->
+<gateway><![CDATA[product%3DPHILAN%26api_key%3Dphil%26cust_auth%3Dncdeditphil%7Cncdeditphil%26cust_auth_type%3Duserpw%26type%3Dtriplet]]></gateway>
+</permuter>

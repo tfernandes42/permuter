@@ -1,4 +1,0 @@
-<rankevidence>
-    <id>15600FC405BF9690</id>
-    <query><![CDATA[&p_field_primary-0=alltext&p_params_primary-0=weight:1&p_text_primary-0=()&p_bool_primary-4=OR&p_field_primary-4=alltext&p_params_primary-4=weight:1&p_text_primary-4=("Dartmouth Hitchcock" OR "DHMC" OR "D-H")&p_bool_second-10=OR&p_field_second-10=alltext&p_params_second-10=weight:0&p_text_second-10=("Dartmouth Hitchcock" OR "DHMC" OR "D-H")&searchLogtf=true]]></query>
-</rankevidence>

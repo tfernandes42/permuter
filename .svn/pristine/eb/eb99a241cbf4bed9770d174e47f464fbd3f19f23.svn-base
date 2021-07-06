@@ -1,0 +1,33 @@
+<personSearch>
+<primary>
+	<nameFirst>Mary</nameFirst>
+	<nameMid>E</nameMid>
+	<nameLast>Rose</nameLast>
+</primary>
+<primary>
+	<org>Mary's Kitchen inc.</org>
+</primary>
+<second>
+	<nameLast>Rose</nameLast>
+	<relationship>spouse</relationship>
+</second>
+<second>
+	<nameLast>Black</nameLast>
+	<relationship>parent</relationship>
+</second>
+<second>
+	<nameLast>White</nameLast>
+	<relationship>sibling</relationship>
+</second>
+<second>
+	<nameLast>Brown</nameLast>
+	<relationship>child</relationship>
+</second>
+<second>
+	<nameLast>Gray</nameLast>
+</second>
+<terms>
+	<term>New York</term>
+	<term>New Jersey</term>
+</terms>
+</personSearch>

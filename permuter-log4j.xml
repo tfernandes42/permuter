@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" packages="biz.paluch.logging.gelf.log4j2">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- <PatternLayout pattern="[%d{ISO8601}]  %-5p [%t] %C{2} (%F:%L) - %m\n" /> -->
+    			<PatternLayout pattern="[%d{yyyyMMdd HH:mm:ss}]  %-5p [%t] %C{​2}​ (%F:%L) - %m\n" />
+            
+        </Console>
+        <!-- <RollingFile name="permuterlog" bufferedIO="true" fileName="/var/log/personsearch/permuter.log" append="true" filePattern="/var/logs/personsearch/permuter.log.%d{yyyy-MM-dd}"> 
+         <PatternLayout pattern="[%d{ISO8601}]  %-5p [%t] %C{2} (%F:%L) - %m\n" />
+         <Policies>
+                 <TimeBasedTriggeringPolicy interval="1" />
+         </Policies>
+	</RollingFile>-->
+	<!-- <Gelf name="gelf" host="tcp:dev-techlogs.newsbank.com" port="12455" version="1.1" extractStackTrace="true" filterStackTrace="true" mdcProfiling="true" includeFullMdc="true" maximumMessageSize="8192" originHost="%host{fqdn}">
+	<Field name="version" literal="1.1"/>
+	<Field name="host" pattern="%host"/>
+	<Field name="className" pattern="%C"/>
+	<Field name="application" literal="personsearch"/>
+	</Gelf> -->
+    </Appenders>
+    
+    <Loggers>
+        <Root level="debug" includeLocation="true">
+            <AppenderRef ref="Console"/>
+            <!--  remove line below if graylogs logging is not wanted -->
+            <!--  <AppenderRef level="debug" ref="gelf"/>-->
+        </Root> 
+		<Logger name="httpclient.wire" level="error">
+                <AppenderRef ref="Console"/>
+       </Logger>
+		<Logger name="org.apache.http" level="error">
+                <AppenderRef ref="Console"/>
+       </Logger>	   
+    </Loggers>
+</Configuration>

@@ -1,0 +1,219 @@
+package com.newsbank.permuter.types;
+
+public class Config {
+	
+	String fulltext= "OCR PAGETEXT";
+	String citation= "SART LED ABS MNT SBODY DECE HED SHL SRI COL KIK DEK U130 U240 U245 U250 U730 U740 ART_TITLE TITLE1 TITLE2 TITLE3 CAP GRC CAPTION U300 U755 ASPPD MEM SEC PAG_HEADER EDT ASPVLN PAG PAG_LABEL SBJ SUB CON SCBD SUBHED ART_SUBHEADING PNA MAUT LAST_NAME FIRST_NAME GEO UNFM U433 U433AD U433PD BNUM BTYPE SESS SESSA SESSC U600 U610 U611 U630 U650 U651 U695A U695B EVNT EXDN EXDO NRRW SGSCAT SGSTERM GNA IGR CAT COM ORG KEY NAM TOP TYP IND TGE TKY TPE TOR METADATA ENV PRP U500 U505 U510 U655 U700 U710 U711 U749 U753 PCAT PCLASS MHED MGEO MDES WTNS SUDOC STATLG LANG PNUM SSVL ASPVL SVOL SVCL CNOT MNUM MSCALE MCOORD SSNO ASPNO APNUM DEPTNAM TERNAM TERNO TERPD PARKERTITLE NARACOLL NARAGRPTITLE OPB U745 SRCNAME ART_SOURCE_NAME U752 PLOC DOC_PLOC AUT BLC SRC WSR U100 U110 U111 CBOD CCBD CSTC CMN OFPR EXOA EXDA ART_AUTHOR";
+	String alltext= "SART OCR PAGETEXT LED ABS MNT SBODY DECE HED SHL SRI COL KIK DEK U130 U240 U245 U250 U730 U740 ART_TITLE TITLE1 TITLE2 TITLE3 CAP GRC CAPTION U300 U755 ASPPD MEM SEC PAG_HEADER EDT ASPVLN PAG PAG_LABEL SBJ SUB CON SCBD SUBHED ART_SUBHEADING PNA MAUT LAST_NAME FIRST_NAME GEO UNFM U433 U433AD U433PD BNUM BTYPE SESS SESSA SESSC U600 U610 U611 U630 U650 U651 U695A U695B EVNT EXDN EXDO NRRW SGSCAT SGSTERM GNA IGR CAT COM ORG KEY NAM TOP TYP IND TGE TKY TPE TOR METADATA ENV PRP U500 U505 U510 U655 U700 U710 U711 U749 U753 PCAT PCLASS MHED MGEO MDES WTNS SUDOC STATLG LANG PNUM SSVL ASPVL SVOL SVCL CNOT MNUM MSCALE MCOORD SSNO ASPNO APNUM DEPTNAM TERNAM TERNO TERPD PARKERTITLE NARACOLL NARAGRPTITLE OPB U745 SRCNAME ART_SOURCE_NAME U752 PLOC DOC_PLOC AUT BLC SRC WSR U100 U110 U111 CBOD CCBD CSTC CMN OFPR EXOA EXDA ART_AUTHOR";
+	//--------------
+	//initialize all lists
+	String [] prefix = {"MISTER","MR","MISTRESS","MRS","MS","MISS","DOCTOR","DR","PROFESSOR","PROF","PR","FATHER","FR","PASTOR","PR",
+			"BROTHER","BR","SISTER","SR","MOTHER","RABBI","REVEREND","REV","MONSIGNOR","MSGR", "ADMIRAL","ADM","MARSHAL","MAR",
+			"SHERIFF","GENERAL","GEN","LIEUTENANT","LT","MAJOR","MAJ","COMMODORE","COM","BRIGADIER","BRIG","BR","CAPTAIN","CAPT",
+			"COLONEL","COL","COMMANDER","OFFICER","OFF","ENSIGN","ENS","SERGEANT","SGT","CORPORAL","PRIVATE","PVT","SEAMAN","AIRMAN",
+			"VICE","PRESIDENT","PRES" };
+	String [] suffix = {"JR","JUNIOR","SR","SENIOR","2ND","II","3RD","III","4TH","IV","5TH","V","6TH","VI","AJ","A.J","CEO","C.E.O",
+			"CNA","C.N.A","CP","C.P","CPA","C.P.A","CPPS","C.P.P.S","CSJ","C.S.J","CSV","C.S.V","DC","D.C","DDS","D.D.S","DO","D.O",
+			"DV","D.V","DVM","D.V.M","EDD","ED.D","ESQ","ESQUIRE","JD","J.D","LCPL","L.C.P.L","LPN","L.P.N","MBA","M.B.A","MD","M.D",
+			"OFM","O.F.M","OP","O.P","OSF","O.S.F","PHD","PH.D","RN","R.N","RSM","R.S.M","SJ","S.J","US","U.S","USAF","U.S.A.F",
+			"USAR","U.S.A.R","USMC","U.S.M.C","USN","U.S.N"};
+	
+	//relationships
+	String [] all = { "WIFE","HUSBAND","SPOUSE","EX-WIFE","EX-HUSBAND","DECEASED SPOUSE","DIVORCED SPOUSE","EX-SPOUSE","FORMER HUSBAND",
+			"FORMER SPOUSE","FORMER WIFE","SURVIVING SPOUSE","WIDOW","WIDOWER","MOTHER","FATHER","PARENT","SISTER","BROTHER","SISTER-IN-LAW", 
+			"BROTHER-IN-LAW","AUNT","UNCLE","COUSIN","MOTHER-IN-LAW","STEPFATHER","SIBLING","STEPMOTHER","FATHER-IN-LAW","STEPBROTHER",
+			"STEPSISTER","SIBLING-IN-LAW","PARENT-IN-LAW","STEPSIBLING","FIANCE","STEPPARENT","DOMESTIC PARTNER" };
+	//FOR CENSUS
+	String [] head0 = {"HEAD","DECEASED"};
+	String [] spouse0 = {"SPOUSE","WIFE","HUSBAND","EX-WIFE","EX-HUSBAND","DECEASED SPOUSE","DIVORCED SPOUSE","EX-SPOUSE",
+			"FORMER HUSBAND","FORMER SPOUSE","FORMER WIFE","SURVIVING SPOUSE","WIDOW","WIDOWER"};
+	String [] parent0 = {"PARENT","MOTHER","FATHER","PARENT-IN-LAW","MOTHER-IN-LAW","FATHER-IN-LAW","STEPPARENT","STEPMOTHER","STEPFATHER",
+			"GRANDPARENT","GRANDMOTHER","GRANDFATHER","GRANDPARENT-IN-LAW","GRANDMOTHER-IN-LAW","GRANDFATHER-IN-LAW","STEP-GRANDPARENT",
+			"STEP-GRANDMOTHER","STEP-GRANDFATHER","GREAT-GRANDPARENT","GREAT-GRANDMOTHER","GREAT-GRANDFATHER","AUNT","UNCLE"};
+	String [] sibling0 = {"SIBLING","SISTER","BROTHER","SIBLING-IN-LAW","SISTER-IN-LAW","BROTHER-IN-LAW","STEPSIBLING","STEPSISTER","STEPBROTHER"};
+	String [] child0 = {"CHILD","DAUGHTER","SON","CHILD-IN-LAW","DAUGHTER-IN-LAW","SON-IN-LAW","STEPCHILD","STEPDAUGHTER","STEPSON","GRANDCHILD","GRANDDAUGHTER",
+			"GRANDSON","GRANDCHILD-IN-LAW","GRANDDAUGHTER-IN-LAW","GRANDSON-IN-LAW","STEP-GRANDCHILD","STEP-GRANDDAUGHTER","STEP-GRANDSON"};
+	
+	String [] head = {"SPOUSE", "WIFE", "HUSBAND", "EX-WIFE", "EX-HUSBAND","DECEASED SPOUSE","DIVORCED SPOUSE","EX-SPOUSE",
+			"FORMER HUSBAND","FORMER SPOUSE","FORMER WIFE","SURVIVING SPOUSE","WIDOW","WIDOWER","PARENT","MOTHER","FATHER","PARENT-IN-LAW", 
+			"MOTHER-IN-LAW","FATHER-IN-LAW","STEPPARENT","STEPMOTHER","STEPFATHER","GRANDPARENT","GRANDMOTHER","GRANDFATHER","GRANDPARENT-IN-LAW", 
+			"GRANDMOTHER-IN-LAW","GRANDFATHER-IN-LAW","STEP-GRANDPARENT","STEP-GRANDMOTHER","STEP-GRANDFATHER","GREAT-GRANDPARENT", 
+			"GREAT-GRANDMOTHER","GREAT-GRANDFATHER","AUNT","UNCLE","SIBLING","SISTER","BROTHER","SIBLING-IN-LAW","SISTER-IN-LAW",
+			"BROTHER-IN-LAW","STEPSIBLING","STEPSISTER","STEPBROTHER"};
+	String [] spouse = {"HEAD","DECEASED","PARENT", "MOTHER", "FATHER", "PARENT-IN-LAW", "MOTHER-IN-LAW", "FATHER-IN-LAW", "STEPPARENT", "STEPMOTHER", "STEPFATHER",
+			"GRANDPARENT", "GRANDMOTHER", "GRANDFATHER", "GRANDPARENT-IN-LAW", "GRANDMOTHER-IN-LAW", "GRANDFATHER-IN-LAW","STEP-GRANDPARENT",
+			"STEP-GRANDMOTHER", "STEP-GRANDFATHER", "GREAT-GRANDPARENT", "GREAT-GRANDMOTHER", "GREAT-GRANDFATHER","AUNT", "UNCLE","SIBLING", "SISTER", 
+			"BROTHER", "SIBLING-IN-LAW", "SISTER-IN-LAW", "BROTHER-IN-LAW", "STEPSIBLING", "STEPSISTER", "STEPBROTHER"};
+	String [] parent = {"PARENT", "MOTHER", "FATHER", "PARENT-IN-LAW", "MOTHER-IN-LAW", "FATHER-IN-LAW", "STEPPARENT", "STEPMOTHER", "STEPFATHER",
+			"GRANDPARENT", "GRANDMOTHER", "GRANDFATHER", "GRANDPARENT-IN-LAW", "GRANDMOTHER-IN-LAW", "GRANDFATHER-IN-LAW","STEP-GRANDPARENT",
+			"STEP-GRANDMOTHER", "STEP-GRANDFATHER", "GREAT-GRANDPARENT", "GREAT-GRANDMOTHER", "GREAT-GRANDFATHER","AUNT", "UNCLE"};
+	String [] sibling = {"HEAD","DECEASED","SPOUSE","WIFE","HUSBAND","EX-WIFE","EX-HUSBAND","DECEASED SPOUSE","DIVORCED SPOUSE","EX-SPOUSE",
+			"FORMER HUSBAND","FORMER SPOUSE","FORMER WIFE","SURVIVING SPOUSE","WIDOW","WIDOWER","PARENT","MOTHER","FATHER","PARENT-IN-LAW","MOTHER-IN-LAW",
+			"FATHER-IN-LAW","STEPPARENT","STEPMOTHER","STEPFATHER","GRANDPARENT","GRANDMOTHER","GRANDFATHER","GRANDPARENT-IN-LAW","GRANDMOTHER-IN-LAW", 
+			"GRANDFATHER-IN-LAW","STEP-GRANDPARENT","STEP-GRANDMOTHER","STEP-GRANDFATHER","GREAT-GRANDPARENT","GREAT-GRANDMOTHER","GREAT-GRANDFATHER","AUNT","UNCLE",
+			"SIBLING","SISTER","BROTHER","SIBLING-IN-LAW","SISTER-IN-LAW","BROTHER-IN-LAW","STEPSIBLING","STEPSISTER","STEPBROTHER","SIBLING","SISTER","BROTHER", 
+			"SIBLING-IN-LAW","SISTER-IN-LAW","BROTHER-IN-LAW","STEPSIBLING","STEPSISTER","STEPBROTHER"};
+	String [] child = {"HEAD","DECEASED","SPOUSE","WIFE","HUSBAND","EX-WIFE","EX-HUSBAND","DECEASED SPOUSE","DIVORCED SPOUSE","EX-SPOUSE",
+			"FORMER HUSBAND","FORMER SPOUSE","FORMER WIFE","SURVIVING SPOUSE","WIDOW","WIDOWER","PARENT","MOTHER","FATHER","PARENT-IN-LAW","MOTHER-IN-LAW", 
+			"FATHER-IN-LAW","STEPPARENT","STEPMOTHER","STEPFATHER","GRANDPARENT","GRANDMOTHER","GRANDFATHER","GRANDPARENT-IN-LAW","GRANDMOTHER-IN-LAW", 
+			"GRANDFATHER-IN-LAW","STEP-GRANDPARENT","STEP-GRANDMOTHER","STEP-GRANDFATHER","GREAT-GRANDPARENT","GREAT-GRANDMOTHER","GREAT-GRANDFATHER","AUNT", 
+			"UNCLE","SIBLING","SISTER","BROTHER","SIBLING-IN-LAW","SISTER-IN-LAW","BROTHER-IN-LAW","STEPSIBLING","STEPSISTER","STEPBROTHER","SIBLING", 
+			"SISTER","BROTHER","SIBLING-IN-LAW","SISTER-IN-LAW","BROTHER-IN-LAW","STEPSIBLING","STEPSISTER","STEPBROTHER","CHILD","DAUGHTER","SON",
+			"CHILD-IN-LAW","DAUGHTER-IN-LAW","SON-IN-LAW","STEPCHILD","STEPDAUGHTER","STEPSON","GRANDCHILD","GRANDDAUGHTER","GRANDSON",
+			"GRANDCHILD-IN-LAW","GRANDDAUGHTER-IN-LAW","GRANDSON-IN-LAW","STEP-GRANDCHILD","STEP-GRANDDAUGHTER","STEP-GRANDSON"};
+	
+	public Config(String fulltext, String citation, String alltext, String[] prefix, String[] suffix, String[] all,
+			String[] head0, String[] spouse0, String[] parent0, String[] sibling0, String[] child0, String[] head,
+			String[] spouse, String[] parent, String[] sibling, String[] child) {
+		super();
+		this.fulltext = fulltext;
+		this.citation = citation;
+		this.alltext = alltext;
+		this.prefix = prefix;
+		this.suffix = suffix;
+		this.all = all;
+		this.head0 = head0;
+		this.spouse0 = spouse0;
+		this.parent0 = parent0;
+		this.sibling0 = sibling0;
+		this.child0 = child0;
+		this.head = head;
+		this.spouse = spouse;
+		this.parent = parent;
+		this.sibling = sibling;
+		this.child = child;
+	}
+
+	public Config() {
+	}
+	
+	public Config(String fulltext, String citation, String alltext, String elmWithin) {
+		super();
+		this.fulltext = fulltext;
+		this.citation = citation;
+		this.alltext = alltext;
+	}
+	
+	public String getFulltext() {
+		return fulltext;
+	}
+	public void setFulltext(String fulltext) {
+		this.fulltext = fulltext;
+	}
+	public String getCitation() {
+		return citation;
+	}
+	public void setCitation(String citation) {
+		this.citation = citation;
+	}
+	public String getAlltext() {
+		return alltext;
+	}
+	public void setAlltext(String alltext) {
+		this.alltext = alltext;
+	}
+
+	public String[] getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String[] prefix) {
+		this.prefix = prefix;
+	}
+
+	public String[] getSuffix() {
+		return suffix;
+	}
+
+	public void setSuffix(String[] suffix) {
+		this.suffix = suffix;
+	}
+
+	public String[] getAll() {
+		return all;
+	}
+
+	public void setAll(String[] all) {
+		this.all = all;
+	}
+
+	public String[] getHead0() {
+		return head0;
+	}
+
+	public void setHead0(String[] head0) {
+		this.head0 = head0;
+	}
+
+	public String[] getSpouse0() {
+		return spouse0;
+	}
+
+	public void setSpouse0(String[] spouse0) {
+		this.spouse0 = spouse0;
+	}
+
+	public String[] getParent0() {
+		return parent0;
+	}
+
+	public void setParent0(String[] parent0) {
+		this.parent0 = parent0;
+	}
+
+	public String[] getSibling0() {
+		return sibling0;
+	}
+
+	public void setSibling0(String[] sibling0) {
+		this.sibling0 = sibling0;
+	}
+
+	public String[] getChild0() {
+		return child0;
+	}
+
+	public void setChild0(String[] child0) {
+		this.child0 = child0;
+	}
+
+	public String[] getHead() {
+		return head;
+	}
+
+	public void setHead(String[] head) {
+		this.head = head;
+	}
+
+	public String[] getSpouse() {
+		return spouse;
+	}
+
+	public void setSpouse(String[] spouse) {
+		this.spouse = spouse;
+	}
+
+	public String[] getParent() {
+		return parent;
+	}
+
+	public void setParent(String[] parent) {
+		this.parent = parent;
+	}
+
+	public String[] getSibling() {
+		return sibling;
+	}
+
+	public void setSibling(String[] sibling) {
+		this.sibling = sibling;
+	}
+
+	public String[] getChild() {
+		return child;
+	}
+
+	public void setChild(String[] child) {
+		this.child = child;
+	}
+}
